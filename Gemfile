@@ -66,10 +66,10 @@ end
   gem 'thin'
 #end
 
-group :production do
+#group :production do
   gem 'pg'
   gem 'heroku'
   gem 'thin'
-end
+#end
 
 gem 'unicorn', '4.3.1'
