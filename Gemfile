@@ -50,7 +50,7 @@ end
 
 group :test, :development do
   gem 'mina'
-
+end
   gem 'railroady'
   gem 'rails-footnotes'
   gem 'rspec-rails'
@@ -63,7 +63,7 @@ group :test, :development do
   gem 'guard-spork'
   gem 'factory_girl'
   gem 'thin'
-end
+#end
 
 group :production do
   gem 'pg'
