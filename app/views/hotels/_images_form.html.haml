@@ -1,0 +1,23 @@
+:javascript
+  jQuery(function(j){
+    j('a[rel="gallery"]').fancybox({
+      overlayColor: '#000',
+      titleShow: true
+    });
+  });
+
+.control-group
+  = f.label :images, class: 'control-label'
+  .controls
+    = f.fields_for :images do |ff|
+      = ff.orig_file_field :attach
+      = ff.orig_text_field :description, placeholder: 'Описание', class: 'input-xxlarge'
+      - if ff.object.attach.file?
+        = link_to 'Смотреть', ff.object.attach.url, rel: 'gallery', class: 'btn', title: 'Посмотреть'
+      = ff.link_to_remove class: 'btn btn-mini' do
+        %i.icon-remove
+      %br
+      %br
+    = f.link_to_add :images, class: 'btn' do
+      %i.icon-plus
+      Добавить изображение

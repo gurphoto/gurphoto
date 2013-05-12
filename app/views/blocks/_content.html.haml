@@ -1,0 +1,15 @@
+.container.content
+  .row
+    .span2.sidebar.hidden-tablet.hidden-phone
+      = render_cell :latest_articles, :display
+    .span10
+      - if notice
+        .alert.alert-info
+          = notice
+
+      - if alert
+        .alert.alert-error
+          = alert
+
+      = yield
+

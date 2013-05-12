@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 1
+  service_id: 1
+  hotel_id: 1
+  value: Некое описание кухни
+
+two:
+  id: 2
+  service_id: 3
+  hotel_id: 1
+  value: Рядом кафе, средний чек за обед 200 рублей

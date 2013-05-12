@@ -1,0 +1,13 @@
+.services-form
+  = nice_form_for resource do |f|
+    = f.errors_for
+
+    = f.text_field :name
+    = f.text_field :default_value
+    = f.check_box :only_signed
+    = f.check_box :multiline
+    = f.check_box :include_to_print
+
+    = f.actions do
+      = f.submit 'Сохранить', class: 'btn btn-primary'
+      = link_to 'Отмена', collection_path, class: 'btn'

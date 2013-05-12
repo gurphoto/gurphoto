@@ -1,0 +1,24 @@
+.email-templates
+  %h3.with-button
+    Шаблоны сообщений
+    - if can? :create, EmailTemplate
+      = link_to 'Добавить', new_resource_path, class: 'btn btn-mini btn-success'
+
+  = table do
+    %tr
+      %th(width="200") Тип
+      %th Тема сообщения
+      %th(width=35)
+
+    - collection.each do |resource|
+      %tr
+        %td= t "email_templates_types.#{resource.name}"
+        %td= resource.subject
+        %td.actions
+          - if can? :update, resource
+            = link_to edit_resource_path(resource) do
+              %i.icon-pencil
+
+          - if can? :delete, resource
+            = link_to resource, confirm: 'Вы уверены, что хотите удалить это?', method: :delete do
+              %i.icon.icon-trash

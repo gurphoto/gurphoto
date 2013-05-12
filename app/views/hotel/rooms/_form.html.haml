@@ -1,0 +1,7 @@
+= nice_form_for resource do |f|
+  = f.errors_for
+  = f.text_field :name
+
+  = f.actions do
+    = f.submit 'Сохранить'
+    = link_to 'Отмена', hotel_rooms_path, class: 'btn'

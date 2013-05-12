@@ -1,0 +1,8 @@
+.filters
+  %h3.with-button
+    Доп. поля номеров (списки)
+    - if can? :create, Hotel::Room::List
+      = link_to 'Добавить', new_resource_path, class: 'btn btn-mini btn-success'
+
+  #content-table
+    = render partial: 'table'

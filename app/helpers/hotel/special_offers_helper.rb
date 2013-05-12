@@ -1,0 +1,3 @@
+module Hotel::SpecialOffersHelper
+
+end

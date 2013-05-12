@@ -1,0 +1,21 @@
+%h1 Listing hotel_filter_items
+
+%table
+  %tr
+    %th Filter
+    %th Name
+    %th
+    %th
+    %th
+
+  - @hotel_filter_items.each do |hotel_filter_item|
+    %tr
+      %td= hotel_filter_item.filter_id
+      %td= hotel_filter_item.name
+      %td= link_to 'Show', hotel_filter_item
+      %td= link_to 'Edit', edit_hotel_filter_item_path(hotel_filter_item)
+      %td= link_to 'Destroy', hotel_filter_item, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Item', new_hotel_filter_item_path

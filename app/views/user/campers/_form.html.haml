@@ -1,0 +1,33 @@
+.campers-form
+  .span6
+    = nested_nice_form_for resource, html: { multipart: true} do |f|
+      = f.errors_for
+      .well
+        - $no_tourist = false
+        - f.object.is_partner = false
+        - f.object.is_hotelier = false
+        - f.object.is_tourist = true
+        = f.text_field :surname
+        = f.text_field :email
+        %h7 ('электронный адрес используется в качестве логина при авторизации)
+        %br
+        %br
+
+      .well
+        = f.password_field :password
+        = f.password_field :password_confirmation
+        - f.check_box :is_tourist
+
+      .well
+        = f.fields_for :profile do |ff|
+          = ff.text_field :phones
+          = ff.text_field :skype
+          = ff.text_field :icq
+          = ff.check_box :notified
+          = ff.text_field :address
+          = ff.text_field :city, autocomplete: 'off', data: { provide: 'typeahead', source: Profile.pluck(:name).to_json }
+          %br
+
+      = f.actions do
+        = f.submit 'Сохранить'
+        = link_to 'Отмена', user_campers_path, class: 'btn'

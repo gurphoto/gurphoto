@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @hotels_bank_attribute.name
+%p
+  %b Bik:
+  = @hotels_bank_attribute.bik
+%p
+  %b Corr account:
+  = @hotels_bank_attribute.corr_account
+%p
+  %b Current account:
+  = @hotels_bank_attribute.current_account
+
+= link_to 'Edit', edit_hotels_bank_attribute_path(@hotels_bank_attribute)
+\|
+= link_to 'Back', hotels_bank_attributes_path

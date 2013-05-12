@@ -1,0 +1,21 @@
+.profile-form
+  = nice_form_for @profile do |f|
+    = f.errors_for
+    .row-fluid
+      .span6
+        = protected_text_field f, :name
+        = protected_text_field f, :phones
+        = protected_text_field f, :skype
+        = protected_text_field f, :icq
+        - if current_user.agency?
+          = f.check_box :notified
+      .span6
+        = protected_text_field f, :company_name
+        = protected_text_field f, :address
+        = protected_text_field f, :city
+        = protected_text_field f, :agreement
+      .span12
+        = f.actions do
+          = f.submit 'Сохранить'
+          - if resource.name
+            = link_to 'Отмена', resource, class: 'btn'

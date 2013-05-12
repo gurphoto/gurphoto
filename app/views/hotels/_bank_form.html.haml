@@ -1,0 +1,26 @@
+.row-fluid
+  .span6
+    .well
+      = f.text_field :iin, autocomplete: 'off'
+      = f.text_field :kpp, autocomplete: 'off'
+      = f.text_field :ogrn, autocomplete: 'off'
+      = f.text_field :post_address
+      = f.text_field :legal_address
+  .span6
+    = f.fields_for :bank_attributes do |ff|
+      .well
+        = ff.text_field :name
+        = ff.text_field :bik
+        = ff.text_field :corr_account
+
+        = ff.text_field :current_account
+
+      .pull-right
+        = ff.link_to_remove class: 'btn' do
+          %i.icon-minus
+          Убрать эти данные
+      %br
+      %br
+= f.link_to_add :bank_attributes, class: 'btn' do
+  %i.icon-plus
+  Добавить реквизиты

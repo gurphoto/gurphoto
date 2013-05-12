@@ -1,0 +1,472 @@
+@import 'compass/css3/opacity'
+@import 'compass/css3/border-radius'
+
+body
+  background: #e6f1e3
+  font: 12px Verdana
+
+p
+  font: 12px Verdana
+
+small
+  font-size: 11px
+
+html, body
+  margin: 0
+  padding: 0
+  height: 100%
+
+.without-underline
+  text-decoration: none !important
+
+.page-wrapper
+  position: relative
+  min-height: 100%
+
+.partners
+  .item
+    overflow: hidden
+    border-bottom: 1px dotted #ccc
+    padding-bottom: 15px
+    margin-bottom: 15px
+
+    img
+      border: 1px solid #ccc
+      padding: 2px
+      @include border-radius(3px)
+
+.container.content
+  padding-bottom: 250px
+
+.partner-city
+  color: #fff
+  background: #1c9300
+  border-radius: 15px
+  display: inline-block
+  padding: 4px 9px
+  font-size: 11px
+
+.content
+  h1, h2
+    margin-bottom: 15px
+    font-size: 30px
+    font-weight: 400
+  h3
+    margin-bottom: 15px
+
+  a
+    text-decoration: underline
+
+  a.btn
+    text-decoration: none
+
+  .nav-tabs, .nav-pills
+    a
+      text-decoration: none
+
+#save_hotel_search_query_input
+  vertical-align: -3px
+
+.green
+  font-size: 10px
+  color: green
+
+.icon-anim-mail
+  background: url(<%= asset_path('mail.gif') %>) no-repeat 50% 50%
+
+.header
+  min-height: 245px
+  background: url(i/logo.png) no-repeat 10px 25px
+  position: relative
+  padding-left: 200px
+  .agency-info
+    a, .line
+      opacity: 0.7
+      white-space: nowrap
+      &:hover
+        opacity: 1
+
+      i
+        margin-right: 4px
+
+      img
+        vertical-align: -7px
+  h1
+    display: block
+    width: 140px
+    height: 200px
+    a
+      display: block
+      width: 140px
+      height: 200px
+      text-indent: -99em
+      overflow: hidden
+    position: absolute
+    left: 10px
+    top: 25px
+  .user
+    background: #c8e1c5
+    border-radius: 0 0 5px 5px
+    padding: 10px
+    .auth
+      padding: 35px 0 0 0
+      a
+        font-size: 11px
+        color: #000
+        opacity: 0.3
+        white-space: nowrap
+        &:hover
+          opacity: 1
+  .contacts
+    padding-top: 10px
+    color: #fff
+    font: 11px / 18px tahoma
+    .title
+      margin-bottom: 0
+    .with-image img
+      margin-right: 3px
+      opacity: 0.6
+    a
+      color: #fff
+      text-decoration: underline
+      &:hover
+        color: #777
+  .menu
+    border: 1px solid #c4dfbe
+    border-radius: 5px
+    margin: 20px 0 10px 0
+    ul
+      border: 1px solid #d5efc6
+      margin: 0
+      background: url(i/top-menu.png)
+      border-radius: 4px
+      padding: 0 40px
+    li
+      &:first-child a
+        background: none
+      &.active
+        background: #e664a4 url(i/top-menu-active.png)
+        a
+          text-decoration: none
+          cursor: default
+    a
+      display: inline-block
+      text-decoration: none
+      padding: 0 10px
+      color: #fff
+      text-transform: uppercase
+      text-align: center
+      line-height: 44px
+      margin-left: -1px
+      &:hover
+        text-decoration: underline
+
+ul.full-width
+  font: 14px Verdana, Geneva, sans-serif
+  text-align: justify
+  line-height: 0
+  font-size: 1px
+  text-justify: newspaper
+  text-align-last: justify
+  &:after
+    width: 100%
+    height: 0px
+    visibility: hidden
+    overflow: hidden
+    content: ''
+    display: inline-block
+  li
+    display: inline-block
+    line-height: normal
+    font-size: 12px
+    vertical-align: top
+    white-space: nowrap
+
+.articles-cell
+  font: 12px / 16px tahoma
+  p
+    font: 12px / 16px tahoma
+  .item
+    border: 1px solid #cde4c8
+    border-radius: 3px
+    color: #fff
+    margin-bottom: 8px
+    .border
+      margin: 1px
+      background: #b2b4b1
+      border-radius: 2px
+      padding: 22px 6px
+    .date
+      background: #1c9300
+      border-radius: 15px
+      display: inline-block
+      padding: 4px 9px
+      font-size: 11px
+    .text
+      padding-left: 9px
+    h2
+      font-size: 18px
+      color: #fff
+      margin: 0
+      line-height: 18px
+      margin: 10px 0
+    a
+      color: #fff
+      text-decoration: underline
+
+.footer
+  background: #bcbcbc
+  color: #fff
+  position: absolute
+  bottom: 0
+  width: 100%
+  padding: 50px 0 30px 0
+  .container
+    background: url(i/footer-logo.png) no-repeat 45px 0
+  .wrapper
+    padding-left: 200px
+  .copyright
+    font: 11px / 16px tahoma
+    margin-top: 50px
+  .menu
+    margin-left: -5px
+    li
+      display: inline-block
+      &:after
+        content: ' / '
+      &.last:after
+        content: ''
+    a
+      margin: 0 5px
+      &:hover
+        color: #666
+  a
+    text-decoration: underline
+    color: #fff
+
+.hotels .item
+  position: relative
+  min-height: 120px
+  padding-left: 220px
+  img
+    position: absolute
+    left: 0
+    top: 0
+  .info
+    line-height: 20px
+
+.reviews-cell h2
+  margin-top: 20px
+
+.articles .item
+  position: relative
+  min-height: 60px
+  padding-left: 70px
+  margin: 10px 0
+  img
+    position: absolute
+    left: 0
+    top: 0
+
+.site img
+  margin-bottom: 15px
+
+.admin-menu .well
+  padding: 8px
+
+.predefined-filters li
+  display: inline-block
+
+.submenu .well
+  padding: 8px
+
+
+.reviews
+  .row-fluid
+    margin-bottom: 20px
+  .well
+    padding: 10px
+    margin: 10px 0
+    h6
+      color: #555
+    .btn
+      opacity: 0.7
+      &:hover
+        opacity: 1
+  .character1
+    background: #ffc3b8
+  .character2
+    background: #dfebdb
+  .character3
+    background: #d0ffba
+
+.hotels-show .reviews
+  .item
+    margin: 10px 0
+    border-radius: 10px
+    padding: 10px
+    border-bottom: 1px dotted #ccc
+  .character1
+    background: #ffc3b8
+  .character2
+    background: #dfebdb
+  .character3
+    background: #d0ffba
+  .name
+    font-weight: 800
+    color: #444
+  .date
+    font-size: 11px
+  .info
+    margin-bottom: 10px
+
+.table-styled
+  border-radius: 5px
+
+form a.btn
+  text-decoration: none
+
+.cp
+  h2
+    font-size: 20px
+    small
+      font-size: 12px
+      display: inline-block
+      margin-top: 7px
+      float: right
+      background: #ccc
+      border-radius: 15px
+      line-height: 23px
+      padding: 0 10px
+      a
+        cursor: pointer
+        text-decoration: none
+  textarea
+    width: 100%
+
+select
+  line-height: 16px
+
+.profile-cell
+  .role
+    color: green
+    font-weight: 800
+    font-size: 11px
+  .links
+    margin-right: 20px
+    margin-top: 5px
+    a
+      color: #000
+      text-decoration: underline
+      margin-right: 5px
+      opacity: 0.7
+      &:hover
+        opacity: 1
+
+.submenu
+  a
+    color: #000
+    opacity: 0.7
+
+    &:hover
+      opacity: 1
+
+  .well
+    padding: 8px 0
+
+.with-button
+  .btn, .btn-group
+    float: right
+    font-weight: 400
+    margin-top: 8px
+    opacity: 0.8
+    margin-left: 10px
+    &:hover
+      opacity: 1
+
+  .btn-group
+    .btn
+      float: left
+      margin-left: 0
+
+.partners
+  .pull-left
+    margin-right: 10px
+
+.js-loader
+  background: #000 url(<%= asset_path("ajax-loader-big-dark.gif") %>) no-repeat 50% 50%
+  @include opacity(0.5)
+  position: absolute
+  left: 0
+  top: 0
+
+table
+  .actions
+    a
+      text-decoration: none
+
+.table
+  border-collapse: separate
+  border: 1px solid #ccc
+  border-radius: 4px
+  overflow: hidden
+
+  .center
+    text-align: center
+
+  .actions
+    a
+      text-decoration: none
+
+  td
+    border-left: 1px solid #ccc
+    &:first-child
+      border-left: 0
+
+  th
+    border-top: 0
+    border-left: 1px solid #fff
+    color: #fff
+    background: url(<%= asset_path("ticket-head.png") %>) repeat 0 100%
+    font-weight: 400
+    line-height: 12px
+    padding: 6px 7px
+    vertical-align: middle
+
+    &:first-child
+      border-left: 0
+
+    a
+      color: #fff
+
+.pagination
+  a.no-line
+    text-decoration: none
+
+  .disabled
+    a
+      text-decoration: none
+
+/* large desktop
+@media (min-width: 1200px)
+  /*.header .menu a { padding: 0 32px 0 34px; }
+
+/* Phone
+@media (max-width: 767px)
+  .header .menu li:first-child a
+    background: url(i/menu-separator.png) no-repeat 0 50%
+  .articles-cell
+    display: none
+
+/* Tablet
+@media (min-width: 768px) and (max-width: 979px)
+  .header .contacts
+    width: 100%
+
+/* Tablet and phone
+@media (max-width: 979px)
+  .header .menu
+    margin-left: -200px
+  .content *[class*="span"], .footer *[class*="span"]
+    width: 100%
+    margin: 0

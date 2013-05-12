@@ -1,0 +1,2 @@
+class EmailTemplatesController < EditController
+end

@@ -1,0 +1,22 @@
+= form_for @hotels_bank_attribute do |f|
+  -if @hotels_bank_attribute.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@hotels_bank_attribute.errors.count, "error")} prohibited this hotels_bank_attribute from being saved:"
+      %ul
+        - @hotels_bank_attribute.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :bik
+    = f.text_field :bik
+  .field
+    = f.label :corr_account
+    = f.text_field :corr_account
+  .field
+    = f.label :current_account
+    = f.text_field :current_account
+  .actions
+    = f.submit 'Save'

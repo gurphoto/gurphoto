@@ -1,0 +1,23 @@
+one:
+  id: 1
+  filter_id: 1
+  hotel_id: 1
+  item_id: 1
+
+two:
+  id: 2
+  filter_id: 2
+  hotel_id: 1
+  item_id: 12
+
+three:
+  id: 3
+  filter_id: 1
+  hotel_id: 2
+  item_id: 3
+
+four:
+  id: 4
+  filter_id: 2
+  hotel_id: 2
+  item_id: 8

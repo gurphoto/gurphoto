@@ -1,0 +1,45 @@
+.user-hoteliers
+  -$no_tourist = true
+
+  %h3.with-button
+    Все хотельеры
+    - if can? :create, User::Hotelier
+      = link_to 'Новый хотельер', new_user_hotelier_path, class: 'btn btn-mini btn-success'
+
+  = table :stripped do
+    %tr
+      %th= sortable 'profiles.company_name', 'Название'
+      %th= sortable 'profiles.city', 'Город'
+      %th Контакты
+      %th= sortable 'profiles.agreement', '№ договора'
+      %th= sortable 'profiles.name', 'Представитель'
+      %th.center(width="80")= sortable 'is_partner', 'Партнер'
+      %th.actions(width="35")
+
+    - collection.each do |resource|
+      %tr
+        %td= resource.profile.company_name
+        %td= resource.profile.city
+        %td
+          Электронный адрес:
+          = resource.email
+          %br
+          Телефоны:
+          = resource.profile.phones
+          %br
+          Skype:
+          = resource.profile.skype
+          %br
+          ICQ:
+          = resource.profile.icq
+          %br
+          Адрес:
+          = resource.profile.address
+        %td= resource.profile.agreement
+        %td= resource.profile.name
+        %td.center
+          - if resource.is_partner
+            %i.icon-ok
+        %td.actions
+          = icon_link_to :pencil, '', edit_resource_path(resource)
+          = icon_link_to :trash, '', resource, confirm: 'Are you sure?', method: :delete

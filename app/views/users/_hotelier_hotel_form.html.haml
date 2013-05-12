@@ -1,0 +1,16 @@
+.row-fluid
+  .span6
+    - $is_hotelier_form = true
+    = f.fields_for :hotelier_hotels do |ff|
+      .well
+        = ff.text_field :user_id
+        = ff.text_field :hotel_id
+      .pull-right
+        = ff.link_to_remove class: 'btn' do
+          %i.icon-minus
+          Убрать эту гостиницу
+      %br
+      %br
+= f.link_to_add :hotelier_hotels, class: 'btn' do
+  %i.icon-plus
+  Добавить ещё одну гостиницу

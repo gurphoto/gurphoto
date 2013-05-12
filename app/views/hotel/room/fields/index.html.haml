@@ -1,0 +1,8 @@
+.services
+  %h3.with-button
+    Дополнительные поля номеров
+    - if can? :create, Hotel::Room::Field
+      = link_to 'Добавить', new_resource_path, class: 'btn btn-mini btn-success'
+
+  #content-table
+    = render partial: 'table'

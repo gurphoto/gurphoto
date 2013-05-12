@@ -1,0 +1,9 @@
+= nice_form_for resource do |f|
+  = f.errors_for
+  = f.select :name, resource.class.types.map { |name| [t("email_templates_types.#{name}"), name] }
+  = f.text_field :subject
+  = f.text_area :body, class: 'input-xxlarge', rows: 10
+
+  = f.actions do
+    = f.submit 'Сохранить'
+    = link_to 'Назад', collection_path, class: 'btn'

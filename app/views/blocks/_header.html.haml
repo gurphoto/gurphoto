@@ -1,0 +1,46 @@
+.container
+  .header
+    %h1
+      %a{:href => root_path} Фотографическое агентство GurFoto
+    .user
+      .row-fluid
+        - if user_signed_in?
+          = render :partial => 'blocks/profile'
+        - else
+          .span4
+            .auth
+              %a{:href => new_user_session_path}
+                %i.icon.icon-share-alt
+                Вход
+
+              %a{:href => new_user_camper_path}
+                %i.icon.offset1.icon-share-alt
+                Регистрация
+
+          .span1.offset1  
+          .span2.contacts
+            .title Контактный тел.:
+            +7 (988) 667 03 93
+          .span2.contacts
+            .title E-mail
+            biggur@mail.ru
+          .span3.contacts
+            .title Skype
+            .with-image
+
+              %a{:href => "skype:gurfoto?chat"}
+                gurfoto
+
+    .menu
+      %ul.unstyled.full-width
+        = #main_menu_item 'О компании', page_path('about')
+
+        = main_menu_item 'Акции', articles_path
+        = main_menu_item 'Галерея', hotels_path
+        = main_menu_item 'Услуги', show_page_path('services')
+        = main_menu_item 'Партнеры', partners_site_index_path
+        = main_menu_item 'Документы', documents_path
+        = main_menu_item 'Контакты', contact_path
+
+    - if user_signed_in?
+      = render :partial => 'blocks/sub_menu'

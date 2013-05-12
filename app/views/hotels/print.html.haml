@@ -1,0 +1,119 @@
+!!!
+
+:css
+  html, body, div, span, applet, object, iframe,
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, img, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var,
+  b, u, i, center,
+  dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend,
+  table, caption, tbody, tfoot, thead, tr, th, td { margin:margin 0; padding: 0; border: 0; font-size: 100%; font: inherit; verticall-align: baseline; }
+
+  body { font: 16px }
+  h1 { font-size: 22px; font-weight: 800 }
+  h3 { text-align: center; margin: 10px 0; text-decoration: underline; font-style: italic; font-size: 22px }
+  p { font-style: italic; color: rgb(166, 166, 166); margin: 0; }
+  table { width: 100%; border-collapse: collapse; border-spacing: 0; margin: 20px 0 }
+  table.big-space { margin: 40px 0 }
+  td { padding: 3px 7px; border: 1px solid #777 }
+
+  .name { background-color: rgb(242, 242, 242); width: 100px; white-space: nowrap }
+  .short { width: 150px }
+  .auto { width: auto }
+  .green { color: #0a0 }
+  .blue { color: #00a }
+  .offset-border { border: 2px solid #333 }
+
+  .print-button { border: 1px solid #ccc; border-radius: 0 0 6px 6px; padding: 5px 20px; background: #1b1; text-decoration: none; color: #fff }
+  .tar { text-align: right }
+
+  @media print { .no-print { display: none } }
+
+.tar
+  %a.no-print.print-button(href="#" onclick="window.print(); return false") Распечатать
+
+%table
+  %tr
+    %td.name Название гостиницы:
+    %td.blue(colspan=3)= resource.name
+
+  %tr
+    %td.name Адрес:
+    %td.blue(colspan=3)= ["г. #{resource.city}", "ул. #{resource.street}", resource.street_number].compact.join ', '
+
+  - index = -1
+  - resource.filter_values.each do |value|
+    - next unless value.filter.include_to_print
+    - index += 1
+    = raw '<tr>' if index.even? && index > 0
+    %td.name= value.filter.name
+    %td.blue= value.item.name
+
+%table
+  %tr
+    %td.name Количество номеров:
+    %td.blue= resource.all_rooms_count
+    %td.name Минимальный возраст детей:
+    %td.blue= resource.min_age_children
+
+  %tr
+    - filter_item_ids = resource.filter_values.map { |v| v.item_id }
+    - resource.service_values.each_with_index do |value, index|
+      - next if value.service.filter_item_id and !filter_item_ids.include? value.service.filter_item_id
+      = raw '<tr>' if index.even? && index > 0
+      %td.name= value.service.name
+      %td.blue= value.value
+
+- if resource.special_offers.active.count > 0
+  %h3 Специальные предложения
+
+  - resource.special_offers.active.each do |offer|
+    %table
+      %tr
+        %td.name.auto= offer.title
+        %td.name.short Начало:
+        %td.short.blue= l offer.from, format: :long
+        %td.name.short Завершение:
+        %td.short.blue= l offer.to, format: :long
+      %tr
+        %td.blue(colspan=5)= offer.description
+
+%h3 Описание номеров
+
+- resource.rooms.each do |room|
+  %table.big-space.offset-border
+    %tr
+      %td.name Тип номера
+      %td.blue(width=300)= room.type.name
+      %td.name Количество мест
+      %td.blue= room.places_count
+    %tr
+      %td.name Тип номера по гостиничной классификации
+      %td.blue(width=300)= room.name
+      %td.name Количество доп. мест
+      %td.blue= room.additional_places_count
+
+    -#
+      %tr
+        %td(colspan=4)
+
+      %tr
+        %td.name Цена в летний период
+        %td.blue(colspan=3)= room.price_summer
+      %tr
+        %td.name Цена в высокий период
+        %td.blue(colspan=3)= room.price_high_season
+      %tr
+        %td.name Цена в зимний период
+        %td.blue(colspan=3)= room.price_winter
+
+    %tr
+      %td(colspan=4)
+
+    - room.all_field_values.each do |value|
+      - next unless value.field.include_to_print
+      %tr
+        %td.name= value.field.name
+        %td.blue(colspan=3)= value.value

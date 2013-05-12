@@ -1,0 +1,66 @@
+:javascript
+  jQuery(function(j){
+    j('div.row input[type=checkbox]').click(function(){
+      var checkbox = j(this);
+      var textareaBlock = j('#' + checkbox.data('target'));
+      var textarea = textareaBlock.find('textarea');
+      var visible = checkbox.attr('checked');
+
+      textareaBlock.toggle(visible);
+
+      if(!visible){
+        textarea.data('text', textarea.val());
+        textarea.val('');
+      }
+      else if('' == textarea.val())
+        textarea.val(textarea.data('text'));
+    });
+  });
+
+.row-fluid
+  - resource.all_services.each_with_index do |service, i|
+    .span6
+      - if (index = resource.service_values.index{ |v| v.service_id == service.id })
+        - value = resource.service_values[index]
+      - value = Hotel::Service::Value.find_by_hotel_id_and_service_id resource.id, service.id if !resource.new_record? and !value
+      - value = Hotel::Service::Value.new hotel_id: resource.id, service_id: service.id unless value
+
+      = f.fields_for :service_values, value do |ff|
+        .control-group
+          = ff.label :value, class: 'control-label' do
+            = service.name
+
+          .controls
+            = ff.hidden_field :service_id
+            - if value.service.multiline
+              = ff.orig_text_area :value, rows: 3, class: 'input-xlarge'
+            - else
+              = ff.orig_text_field :value, class: 'input-xlarge'
+
+    = raw '</div><div class="row-fluid">' if i % 2 == 1
+
+-#
+  .row-fluid.long-labels
+    .span8
+      &nbsp;
+      - i = 0
+      - resource.all_service_values.each do |value|
+        = f.fields_for :service_values, value do |ff|
+          .row{ style: "display: #{value.check ? 'block' : 'none'}", id: "service-#{i+=1}" }
+            - value.value = value.service.default_value unless value.value
+            = ff.hidden_field :service_id
+            .control-group
+              = ff.label :value, class: 'control-label' do
+                = value.service.name
+              .controls
+                - if value.service.multiline
+                  = ff.orig_text_area :value, rows: 3, class: 'input-xlarge'
+                - else
+                  = ff.orig_text_field :value, class: 'input-xlarge'
+    .span4
+      - i = 0
+      - resource.all_service_values.each do |value|
+        = f.fields_for :service_values, value do |ff|
+          = ff.orig_check_box :check, style: 'float: left; margin-right: 5px', data: { target: "service-#{i+=1}" }, autocomplete: 'off'
+          = ff.label :value do
+            = value.service.name

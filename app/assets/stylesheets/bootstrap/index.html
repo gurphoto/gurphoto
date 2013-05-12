@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>File namager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/backbone-localstorage.js"></script>
+    
+    <script src="js/application/Application.js"></script>
+    <script src="js/application/Base/Model.js"></script>
+    <script src="js/application/Base/Collection.js"></script>
+    <script src="js/application/Base/View.js"></script>
+    <script src="js/application/Base/ItemView.js"></script>
+    <script src="js/application/Base/Router.js"></script>
+
+    <script src="js/application/Router/Links.js"></script>
+    <script src="js/application/Model/Link.js"></script>
+
+    <script src="js/application/Collection/ViewLinks.js"></script>
+    <script src="js/application/Collection/Folders.js"></script>
+    <script src="js/application/Collection/Links.js"></script>
+
+    <script src="js/application/View/ParentLink.js"></script>
+    <script src="js/application/View/EmptyLink.js"></script>
+    <script src="js/application/View/Link.js"></script>
+    <script src="js/application/View/Links.js"></script>
+    <script src="js/application/View/Tree.js"></script>
+    <script src="js/application/View/TreeItem.js"></script>
+    
+    <script>
+      jQuery(function(j){
+        Application.trigger('ready');
+        
+        //helpers
+        j('a[title]').tooltip();
+      });
+    </script>
+  </head>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+      </div>
+      <div class="row">
+        <div class="span2">
+          <div id="folder-container">
+            <div class="actions">
+              <a href="#" class="upload btn btn-mini">New folder</a>
+            </div>
+            <ul class="unstyled">
+              <li><a href="#favorites"><i class="icon icon-star"></i> Favorites</a></li>
+              <li><a href="#folder/last-downloads"><i class="icon icon-folder-close"></i> Last downloads</a></li>
+              <li class="line"></li>
+              <li><a href="#"><i class="icon icon-folder-open"></i> My files</a>
+                <ul class="unstyled items">
+                  <li><a href="#folder/23"><i class="icon icon-folder-close"></i> My photos</a>
+                  <li><a href="#folder/23"><i class="icon icon-folder-close"></i> My videos</a>
+                  <li><a href="#folder/23"><i class="icon icon-folder-close"></i> Others</a>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="files-container">
+            <div class="row">
+              <div class="span4">
+                <a href="#" class="upload btn"><i class="icon icon-random"></i> Upload</a>
+              </div>
+              <div class="span5">
+                <div class="multi-actions hidden">
+                  <a href="#" class="links btn"><i class="icon icon-tags"></i> Links</a>
+                  <a href="#" class="delete btn"><i class="icon icon-trash"></i> Delete selected</a>
+                </div>
+              </div>
+            </div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th><a href="#" class="sort" data-by="name">File name</a></th>
+                  <th class="view"></th>
+                  <th class="size"><a href="#" class="sort" data-by="size">Size</a></th>
+                  <th class="time"><a href="#" class="sort" data-by="time">Date</a></th>
+                  <th class="action"></th>
+                  <th class="action"></th>
+                  <th class="action"></th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/template" id="template-tree-item">
+      <a href="#folder/<%= id %>">
+        <i class="icon icon-folder-close"></i> <%= name %>
+      </a>
+    </script>
+    <script type="text/template" id="template-empty-link">
+      <td colspan="7">
+        You have not uploaded files into this folder. <a href="#" class="upload">Upload?</a>
+      </td>
+    </script>
+    <script type="text/template" id="template-parent-link">
+      <td colspan="7">
+        <a href="#folder/<%= parentId %>" class="top">
+          <i class="icon icon-share-alt"></i> ...
+        </a>
+      </td>
+    </script>
+    <script type="text/template" id="template-link">
+      <td>
+        <i class="icon icon-<%= icon %>"></i>
+        <span class="text">
+          <a href="<%= isFolder ? '#folder/' + id : url  %>" class="name"><%= name %></a>
+          <a href="#" title="Edit name" class="edit unimportant"><i class="icon icon-pencil"></i></a>
+        </span>
+        <span class="field">
+          <input type="text" value="<%= name %>" />
+          <span class="buttons">
+            <a href="#" class="save btn btn-mini"><i class="icon icon-ok"></i> Save</a>
+            <a href="#" class="cancel btn btn-mini"><i class="icon icon-remove"></i> Cancel</a>
+          </span>
+        </span>
+      </td>
+      <td class="view">
+        <% if(canSee){ %><a href="#" title="See this picture" class="view"><i class="icon icon-eye-open"></i></a><% } %>
+        <% if(canPlay){ %><a href="#" title="Hear this music" class="play"><i class="icon icon-play"></i></a><% } %>
+      </td>
+      <td class="size column">
+        <% if(!isFolder){ %><%= size %><% } %>
+      </td>
+      <td class="time column">
+        <%= time %>
+      </td>
+      <td class="action">
+        <a href="#" class="favorit <% if(!isFavorit){ %> unimportant<% } %>">
+          <i class="icon icon-star<% if(!isFavorit){ %>-empty<% } %>"></i>
+        </a>
+      </td>
+      <td class="action">
+        <a href="#" title="Copy link to clipboard" class="link btn btn-mini unimportant">
+          <i class="icon icon-tag"></i>
+        </a>
+      </td>
+      <td class="action">
+        <a href="#" title="Delete this file" class="delete btn btn-mini unimportant">
+          <i class="icon icon-trash"></i>
+        </a>
+      </td>
+    </script>
+  </body>
+</html>

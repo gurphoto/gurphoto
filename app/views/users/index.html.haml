@@ -1,0 +1,20 @@
+.user-users
+  %h2.with-button
+    Все пользователи
+    = link_to 'Новый пользователь', new_resource_path, class: 'btn btn-mini btn-success'
+
+  %table.table.table-striped
+    %tr
+      %th Емаил
+      %th(width="150") Имя
+      %th.actions(width="18")
+      %th.actions(width="35")
+
+    - collection.each do |resource|
+      %tr
+        %td= resource.email
+        %td= resource.profile.name
+        %td
+        %td.actions
+          = icon_link_to :pencil, '', edit_resource_path(resource)
+          = icon_link_to :trash, '', resource, :confirm => 'Вы уверены, что хотите удалить?', :method => :delete

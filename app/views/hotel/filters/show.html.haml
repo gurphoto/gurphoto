@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @hotel_filter.name
+
+= link_to 'Edit', edit_hotel_filter_path(@hotel_filter)
+\|
+= link_to 'Back', hotel_filters_path

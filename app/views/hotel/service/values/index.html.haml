@@ -1,0 +1,23 @@
+%h1 Listing hotel_service_values
+
+%table
+  %tr
+    %th Service
+    %th Hotel
+    %th Value
+    %th
+    %th
+    %th
+
+  - @hotel_service_values.each do |hotel_service_value|
+    %tr
+      %td= hotel_service_value.service_id
+      %td= hotel_service_value.hotel_id
+      %td= hotel_service_value.value
+      %td= link_to 'Show', hotel_service_value
+      %td= link_to 'Edit', edit_hotel_service_value_path(hotel_service_value)
+      %td= link_to 'Destroy', hotel_service_value, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Value', new_hotel_service_value_path

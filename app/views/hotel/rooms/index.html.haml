@@ -1,0 +1,23 @@
+%h3.with-button
+  Номера в гостинице
+  = '"' + parent.name + '"'
+  - if can? :create, Hotel::Room
+    = link_to 'Добавить номер', new_hotel_room_path, class: 'btn btn-mini btn-success'
+  = link_to 'Назад к гостнице', hotel_path(parent), class: 'btn btn-mini btn-inverse'
+
+%table.table.table-stripped
+  %tr
+    %th Name
+    %th.actions(width="35")
+
+  - collection.each do |resource|
+    %tr
+      %td= resource.name
+      %td.actions
+        - if can? :update, resource
+          = link_to edit_hotel_room_path(parent, resource) do
+            %i.icon-pencil
+
+          = link_to hotel_room_path(parent, resource), :confirm => 'Вы уверены, что хотите удалить эту новость?', :method => :delete do
+            %i.icon.icon-trash
+

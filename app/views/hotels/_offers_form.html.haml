@@ -1,0 +1,56 @@
+:javascript
+  jQuery(function(j){
+    function updateDateRange(date){
+      var picker = j(this);
+      var isFrom = picker.hasClass('from-date');
+
+      picker.closest('div.controls').find(isFrom ? 'div.to-date' : 'div.from-date').datepicker('option', isFrom ? 'minDate' : 'maxDate', date);
+    }
+
+    function updatePickers(){
+      j('div.select-date').each(function(){
+        if(j(this).closest('#special_offers_fields_blueprint').size() > 0)
+          return true;
+
+        var date = j(this).next().val();
+
+        j(this).datepicker('destroy').datepicker({
+          dateFormat: 'yy-mm-dd',
+          altField: j(this).next('input'),
+          onSelect: updateDateRange
+        }).datepicker('setDate', date);
+      }).each(function(){
+        updateDateRange.call(this, j(this).next().val());
+      });
+    }
+
+    updatePickers();
+
+    j('form').bind('nested:fieldAdded', updatePickers);
+  });
+
+= f.fields_for :special_offers do |ff|
+  .well
+    = ff.text_field :title, class: 'input-xxlarge'
+
+    = ff.wrapper :date do
+      .row-fluid
+        .pull-left(style="margin-right:10px")
+          .select-date.from-date
+          = ff.hidden_field :from
+        .pull-left
+          .select-date.to-date
+          = ff.hidden_field :to
+
+    = ff.text_area :description, class: 'input-xxlarge', rows: 3
+
+    .pull-right
+      = ff.link_to_remove class: 'btn' do
+        %i.icon-minus
+        Убрать это предложение
+    %br
+    %br
+
+= f.link_to_add :special_offers, class: 'btn' do
+  %i.icon-plus
+  Добавить ещё одно

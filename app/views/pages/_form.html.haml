@@ -1,0 +1,20 @@
+.page-form
+  = nice_form_for resource do |f|
+    = f.text_field :title
+    = f.text_field :alias
+    = f.text_area :content, class: 'tinymce'
+
+    = f.wrapper :image do
+      = f.orig_file_field :image
+      - if resource.image.exists?
+        %br
+        = image_tag resource.image(:medium)
+
+    - if resource.image.exists?
+      = f.check_box :image_delete
+
+    = tinymce
+
+    = f.actions do
+      = f.submit 'Сохранить'
+      = link_to 'Отмена', collection_path, class: 'btn'

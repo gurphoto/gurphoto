@@ -1,0 +1,36 @@
+.header { height: 100px }
+
+#files-container .unimportant { visibility: hidden }
+#files-container tr:hover .unimportant { visibility: visible }
+#files-container td { padding: 6px 7px; cursor: pointer; vertical-align: middle; position: relative }
+#files-container .time { width: 90px }
+#files-container .action { width: 25px }
+#files-container .time.column { font-size: 11px }
+#files-container .size { width: 60px }
+#files-container .size.column { font-size: 11px }
+#files-container .icon { margin-right: 4px }
+#files-container .selected  td{ background: #a5b1f8 }
+#files-container .top { display: block; color: #333; text-decoration: none }
+
+#files-container td.view { width: 30px }
+#files-container td.action { width: 30px; padding: 6px 3px }
+
+#files-container .multi-actions { text-align: right }
+#files-container .multi-actions.hidden { visibility: hidden }
+
+#files-container table .field { display: none }
+#files-container table .field input { margin: 0 }
+#files-container table .field .buttons { display: block; padding: 3px 0 3px 20px; }
+
+#files-container table .sort:after { font-size: 9px }
+#files-container table .sort.asc:after { content: ' \2193' }
+#files-container table .sort.desc:after { content: ' \2191' }
+
+#files-container table .text .name { border-bottom: 1px solid #ccc; color: #333; text-decoration: none; line-height: 18px }
+
+#folder-container {}
+#folder-container a { color: #333; text-decoration: none }
+#folder-container .actions { height: 32px }
+#folder-container ul ul { padding-left: 15px }
+#folder-container li { margin: 3px 0 }
+#folder-container .line { height: 1px; background: #ccc; margin: 5px 0 }

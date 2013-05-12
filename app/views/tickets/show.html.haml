@@ -1,0 +1,54 @@
+.tickets-show
+  %h3.with-button
+    Запрос
+    = "##{resource.id}"
+
+    - if resource.closed
+      %small
+        закрыт
+        = l resource.updated_at, format: :long
+
+    - if !resource.closed and can? :close, resource
+      = link_to 'Закрыть этот запрос', ticket_path(resource), :confirm => 'Вы уверены, что хотите закрыть этот запрос?', class: 'btn btn-danger btn-mini', method: :delete
+
+    - if resource.open? && current_user.moderator?
+      = link_to 'Взять', pull_ticket_path(resource), class: 'btn btn-mini btn-inverse'
+
+  .rooms
+    = table do
+      %tr
+        %th Название
+        %th Гостиница
+        %th Город
+      - resource.rooms.each do |room|
+        %tr
+          %td= link_to room.name, "#{hotel_path(room.hotel)}#room-#{room.id}"
+          %td= link_to room.hotel.name, room.hotel
+          %td= room.hotel.city
+
+  .messages
+    - @messages.each do |message|
+      .item(class="#{message.user.type.gsub('::', '-')}")
+        .info
+          %span.name
+            = link_to message.user.profile do
+              %strong
+                = message.user.profile.name
+            - if message.read?
+              %small.green [прочтено]
+            - if can? :update, message
+              = icon_link_to :pencil, '', edit_ticket_message_path(resource, message)
+          %span.created-at
+            = l message.created_at, format: :long
+        = message.text
+
+  = will_paginate @messages, previous_label: '«', next_label: '»'
+
+  - message = resource.messages.build
+  - if can? :create, message
+    .message-form
+      %h4 Добавить новое сообщение
+      = form_for message, url: ticket_messages_path(resource) do |f|
+        = f.hidden_field :ticket_id
+        = f.text_area :text, rows: 4, style: 'width:98%'
+        = f.submit 'Отправить'

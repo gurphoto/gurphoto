@@ -1,0 +1,26 @@
+.user-admins-form
+  = nice_form_for resource do |f|
+    = f.errors_for
+
+    = f.text_field :email
+    = f.text_field :password, hint: resource.new_record? ? nil : 'Указывайте только, если требуется сменить пароль.'
+
+    = f.fields_for :profile do |ff|
+      .row-fluid
+        .span6
+          = ff.check_box :notified
+          = ff.text_field :name
+          = ff.text_field :phones
+        .span6
+          = ff.text_field :skype
+          = ff.text_field :icq
+
+    .control-group
+      %label.control-label Города
+      .controls
+        = select_tag 'user_moderator[city_ids][]', options_from_collection_for_select(resource.all_cities, 'id', 'name', resource.city_ids),  multiple: true, size: 6
+        %p.help-block Для выбора нескольких регионов используйте Ctrl
+
+    = f.actions do
+      = f.submit 'Сохранить'
+      = link_to 'Отмена', user_moderators_path, class: 'btn'

@@ -1,0 +1,31 @@
+.baskets
+  %h3.with-button
+    Объекты для запроса
+    = link_to 'Очистить список', clear_baskets_path, class: 'btn btn-inverse btn-mini'
+
+  - if @basket_items.count == 0
+    %p Корзина запросов пуста.
+  - else
+    = table do
+      %tr
+        %th Название
+        %th(width="150") Город
+        %th(width="150") Гостиница
+        %th(width="20")
+        - @basket_items.each do |i|
+          %tr
+            %td= link_to i.room.name, "#{hotel_path(i.room.hotel)}#room#{i.room_id}"
+            %td= i.room.hotel.city
+            %td= link_to i.room.hotel.name, i.room.hotel
+            %td= icon_link_to :trash, '', "baskets/#{i.room_id}", method: :delete
+
+    .row-fluid
+      .span12
+      = form_for '#', url: tickets_path do |f|
+        - current_user.basket_items.each do |i|
+          = hidden_field_tag 'ticket[room_ids][]', i.room_id
+        Сообщение
+        %br
+        = text_area_tag 'ticket[message_attributes][text]', '', rows: 3, style: 'width:99%'
+
+        = f.submit 'Создать запрос', class: 'btn'

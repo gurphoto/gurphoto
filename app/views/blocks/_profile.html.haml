@@ -1,0 +1,83 @@
+.profile-cell
+  - if (current_user.type == 'User::Agency') || (current_user.type == 'User::Camper')
+    .row-fluid
+      .span8
+        = "[" + current_user.human_type + "]:"
+        - if (current_user.type == "User::Camper")
+          = current_user.surname
+
+        - if (current_user.type == "User::Agency")
+          = current_user.profile.name + " --"
+          = current_user.profile.company_name
+
+        - if (current_user.profile.agreement != "") && (current_user.profile.agreement != nil)
+          = "-- (#{current_user.profile.agreement})"
+
+
+        .links
+          = link_to 'Изменить профиль', edit_profile_path(current_user.profile)
+          = link_to 'Выйти', destroy_user_session_path, :method => :delete
+  
+      .span4.agency-info
+        - if current_user.tickets.count > 0
+          %p
+            Обработка запросов:
+            %br
+            - if current_user.new_messages_count and current_user.new_messages_count > 0
+              .line
+                = image_tag asset_path('mail.png')
+                = current_user.new_messages_count
+                = Russian.p(current_user.new_messages_count, 'новое сообщение', 'новых сообщения', 'новых сообщений')
+
+            - if current_user.tickets.count > 0
+              = link_to tickets_path do
+                = image_tag asset_path('stock.png')
+                = current_user.tickets.count
+                = Russian.p(current_user.tickets.count, 'запрос', 'запроса', 'запросов')
+              %br
+
+        .basket-items(style="display:#{BasketItem.mine.count > 0 ? 'block' : 'none'}")
+          = raw "Объекты для запроса (всего <span class=\"count\">#{BasketItem.mine.count}</span>):"
+          %br
+          = link_to 'Создать запрос', baskets_path, class: 'more'
+
+  - else
+    .row-fluid
+      .span8
+        .links
+          = current_user.email
+
+          %span.green
+            = "[#{current_user.human_type}]"
+
+          %br
+
+          - if current_user.moderator?
+            = link_to 'Профиль', profile_path(current_user.profile)
+
+          - if current_user.admin?
+            = link_to 'Изменить пароль', edit_user_path(current_user)
+
+          = link_to 'Выйти', destroy_user_session_path, :method => :delete
+
+      .span4.agency-info
+        - if current_user.moderator?
+          - if current_user.new_messages_count and current_user.new_messages_count > 0
+            .line
+              = image_tag asset_path('mail.gif')
+              = current_user.new_messages_count
+              = Russian.p(current_user.new_messages_count, 'новое сообщение', 'новых сообщения', 'новых сообщений')
+
+          - if current_user.open_tickets_in_mine_regions_count > 0
+            = link_to tickets_path do
+              = image_tag asset_path('mail.png')
+              = current_user.open_tickets_in_mine_regions_count
+              = Russian.p(current_user.open_tickets_in_mine_regions_count, 'новый запрос', 'новых запроса', 'новых запросов')
+            %br
+
+          - if current_user.mine_ticket_count > 0
+            = link_to tickets_path do
+              = image_tag asset_path('stock.png')
+              = current_user.mine_ticket_count
+              = Russian.p(current_user.mine_ticket_count, 'запрос в работе', 'запроса в работе', 'запросов в работе')
+            %br

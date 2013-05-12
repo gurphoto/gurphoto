@@ -1,0 +1,40 @@
+%h3 Мои запросы
+
+= table do
+  %tr
+    %th.center= sortable 'id', '#'
+    %th= sortable 'created_at', 'Дата создания'
+    %th= sortable 'last_message_created_at', 'Последнее сообщение'
+    %th Город
+    %th Объект
+    %th Тип номера
+    %th(width="40")
+    %th(width="20")
+
+  - collection.each do |resource|
+    %tr
+      %td.center
+        = resource.id
+      %td= l(resource.created_at, format: :short)
+      %td= l(resource.last_message_created_at, format: :short) if resource.last_message_created_at
+      %td
+        - resource.rooms.each do |room|
+          = room.hotel.city
+          %br
+      %td
+        - resource.rooms.each do |room|
+          = link_to room.hotel.name, room.hotel
+          %br
+      %td
+        - resource.rooms.each do |room|
+          = link_to room.name, "#{hotel_path(room.hotel)}#room-#{room.id}"
+          %br
+      %td.center
+        - if resource.agency_new_messages_count == nil or resource.agency_new_messages_count < 1
+          \-
+        - else
+          = link_to resource, class: 'without-underline', title: "У вас #{resource.agency_new_messages_count} #{Russian.p(resource.agency_new_messages_count, 'новое сообщение', 'новых сообщений', 'новых сообщений')}" do
+            = icon :envelope
+            = resource.agency_new_messages_count
+      %td
+        = icon_link_to 'zoom-in', '', resource_path(resource), title: 'Смотреть переписку по запросу'

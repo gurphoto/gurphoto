@@ -1,0 +1,24 @@
+.reviews
+  %h3.with-button
+    Отзывы о гостиницах
+
+  .items
+    - collection.each do |resource|
+      .row-fluid
+        .span12
+          .well{ class: "character#{resource.character_id}" }
+            %h6= "#{resource.name}, #{Russian.l(resource.created_at, format: :short)}, Электронный адрес: #{resource.email}"
+            %p
+              Гостиница:
+              = link_to resource.hotel.name, resource.hotel, target: '_blank'
+            %p= resource.text
+            .pull-left
+              - if resource.published
+                = link_to 'Снять с публикации', '#', class: 'btn btn-mini btn-inverse change-published unpublished', data: { url: hotel_review_path(resource) }
+              - else
+                = link_to 'Опубликовать', '#', class: 'btn btn-mini btn-success change-published', data: { url: hotel_review_path(resource) }
+            .pull-right.actions
+              = link_to edit_hotel_review_path(resource), class: 'btn btn-mini' do
+                %i.icon-pencil
+              = link_to hotel_review_path(resource), :confirm => 'Уверены, что хотите удалить?', :method => :delete, class: 'btn btn-mini' do
+                %i.icon-trash

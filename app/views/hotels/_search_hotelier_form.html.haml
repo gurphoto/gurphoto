@@ -1,0 +1,131 @@
+:javascript
+  jQuery(function(j){
+    j('div.slider-container').each(function(){
+      var container = j(this);
+      var slider = container.find('div.slider');
+      var fromField = container.find('input.from-field');
+      var toField = container.find('input.to-field');
+      var indicator = container.find('div.indicator');
+
+      fromField.val(fromField.val() || container.data('step') || 1);
+      toField.val(toField.val() || container.data('max') || 10);
+
+      function updateIndicator(){
+        indicator.html('от ' + fromField.val() + ' до ' + toField.val());
+      }
+
+      var prevFrom = fromField.val();
+      var prevTo = toField.val();
+
+      fromField.change(function(){
+        var input = j(this);
+        var value = parseInt(input.val()) || prevTo;
+
+        if(value > prevTo)
+          value = prevTo;
+
+        input.val(value);
+        prevFrom = value;
+      }).keypress(function(e){
+        if(e.keyCode == 13){
+          j(this).change();
+          return false;
+        }
+      });
+
+      toField.change(function(){
+        var input = j(this);
+        var value = parseInt(input.val()) || prevFrom;
+
+        if(value < prevFrom)
+          value = prevFrom;
+
+        input.val(value);
+        toFrom = value;
+      }).keypress(function(e){
+        if(e.keyCode == 13){
+          j(this).change();
+          return false;
+        }
+      });
+
+      setInterval(function(){
+        if(prevFrom !== fromField.val()){
+          prevFrom = fromField.val();
+          slider.slider('values', 0, prevFrom);
+        }
+
+        if(prevTo !== toField.val()){
+          prevTo = toField.val();
+          slider.slider('values', 1, prevTo);
+        }
+      }, 100);
+
+      slider = slider.slider({
+        range: true,
+        step: container.data('step') || 1,
+        min: container.data('min') || 1,
+        max: container.data('max') || 10,
+        values: [fromField.val(), toField.val()],
+        slide: function(event, ui){
+          fromField.val(ui.values[0]);
+          toField.val(ui.values[1]);
+          updateIndicator();
+        }
+      });
+
+      updateIndicator();
+    });
+
+    j('a.save-toggle').click(function(){
+      j(this).prev().val(j(this).prev().val() == 1 ? 0 : 1);
+    });
+  });
+
+.search-form
+  = nice_form_for @search, url: hotels_path, method: 'get', html: { class: 'form-horizontal' } do |f|
+    .accordion#seach-accordion
+      .accordion-group
+        .accordion-heading
+          %a.accordion-toggle.no-line(href="#" data-toggle="collapse" href="#")
+            = raw '<i class="icon-th-large"></i>Основные опции'
+        .accordion-body.collapse.in#main-options
+          .accordion-inner
+            .row-fluid
+              .span6
+                - if can? :edit, Hotel
+                  = f.text_field :name, autocomplete: 'off', data: { source: Hotel.pluck(:name).to_json }, class: 'typeahead'
+                - else
+                  = f.text_field :name, autocomplete: 'off', data: { source: Hotel.published.pluck(:name).to_json }, class: 'typeahead'
+
+              .span6
+                = f.text_field :find_city, autocomplete: 'off', data: { source: Hotel::City.pluck(:name).to_json,  }, class: 'typeahead'
+                = f.text_field :street, autocomplete: 'off', data: { source: Hotel.uniq.pluck(:street).compact.to_json }, class: 'typeahead'
+
+            .row-fluid
+              .span6
+                - @search.all_filters.each_with_index do |filter, i|
+                  - next unless filter.show_in_search
+                  .control-group
+                    %label.control-label= filter.name
+                    .controls
+                      = select_tag "filters[#{filter.id}]", options_from_collection_for_select(filter.items, :id, :name, selected: params['filters'] ? params['filters'][filter.id.to_s] : 0), { prompt: 'Любое' }
+
+              .span6
+                - @search.all_services.each_with_index do |service, i|
+                  - next unless service.default
+                  .control-group(style="float:left")
+                    %label.control-label= service.name
+                    .controls
+                      = check_box_tag "services[#{service.id}]", '1', params['services'] ? params['services'][service.id.to_s] : false
+
+    = hidden_field_tag :per_page, params[:per_page]
+
+    = f.actions do
+      = f.submit 'Поиск', class: 'btn'
+      - if params[:hotel]
+        = link_to 'Сбросить параметры', collection_path(reset_search: 1), class: 'btn'
+      - if user_signed_in?
+        %label.btn(for="save_hotel_search_query_input" style="font-size: 12px")
+          = check_box_tag :save_hotel_search_query, 'yes', current_user.save_hotel_search_query, data: { :'save-url' => save_hotel_search_query_user_path(current_user) }, id: 'save_hotel_search_query_input'
+          Запоминать опции поиска

@@ -1,0 +1,19 @@
+%table.table.table-striped
+  %tr
+    %th Название
+    %th.actions(width="35")
+    %th.actions(width="35")
+
+  - collection.each do |resource|
+    %tr
+      %td= resource.name
+      %td.actions
+        - if can? :sort, resource
+          = icon_link_to 'arrow-up', '', sort_hotel_city_path(resource, direction: :up), remote: true, data: { replace: '#content-table' }
+          = icon_link_to 'arrow-down', '', sort_hotel_city_path(resource, direction: :down), remote: true, data: { replace: '#content-table' }
+      %td.actions
+        - if can? :edit, resource
+          = icon_link_to 'pencil', '', edit_resource_path(resource)
+
+        - if can? :delete, resource
+          = icon_link_to 'trash', '', resource, confirm: 'Уверены?', method: :delete

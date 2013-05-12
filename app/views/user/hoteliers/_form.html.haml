@@ -1,0 +1,68 @@
+.hoteliers-form
+  .well
+    = nested_nice_form_for resource, html: { multipart: true} do |f|
+      = f.errors_for
+      .span6
+        - f.object.is_partner = false
+        - f.object.is_hotelier = true
+        = f.text_field :email
+        = f.text_field :password
+        = f.check_box :is_partner
+
+      = f.fields_for :profile do |ff|
+        .row-fluid
+          .span6
+            - $is_hotelier_form = true
+            - $hotelier_save = ff.object.user_id
+            = ff.check_box :notified
+            = ff.text_field :name
+            = ff.text_field :phones
+            = ff.text_field :skype
+            = ff.text_field :icq
+          .span6
+            = ff.text_field :company_name
+            = ff.text_field :address
+            = ff.text_field :city, autocomplete: 'off', data: { provide: 'typeahead', source: Profile.pluck(:name).to_json }
+            = ff.text_field :agreement
+            = ff.wrapper :validity do
+              = ff.orig_date_select :validity, {}, class: 'input-small'
+            = ff.wrapper :logo do
+              = ff.orig_file_field :logo
+              - if ff.object.logo.exists?
+                = image_tag ff.object.logo.url(:thumb)
+              %p.help-block Оптимальный размер: 200x150px
+          .span6
+
+            = f.fields_for :hotelier_hotels do |fff|
+              .span6
+                - if ($hotel_save != nil) && (fff.object.hotel_id == nil)
+                  - fff.object.user_id = resource.profile.user_id
+                  - fff.object.hotel_id = $hotel_save
+                  - fff.object.hotel_name = $hotel_name
+                  - $hotel_save = nil
+
+              .span6
+              .alert-success
+
+                %br
+                - fff.text_field :user_id
+                - fff.text_field :hotel_id
+                = fff.text_field :hotel_name
+                %br
+              .row-fluid
+                .span6
+                  = fff.link_to_remove class: 'btn' do
+                    %i.icon-minus
+                    Убрать эту гостиницу
+              %br
+              %br
+            -  $is_hotelier_form = true
+            = link_to 'Выбрать гостиницу', hotels_path, class: 'btn btn-small btn-warning'
+          .span6
+            = f.link_to_add :hotelier_hotels, class: 'btn' do
+              %i.icon-plus
+              Добавить гостиницу в управление
+
+            = f.actions do
+              = f.submit 'Сохранить'
+              = link_to 'Отмена', user_hoteliers_path, class: 'btn'

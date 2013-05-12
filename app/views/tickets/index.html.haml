@@ -1,0 +1,26 @@
+.tickets
+  - if collection.count == 0
+    %p По данному запросу ничего не найдено
+  - else
+    - if current_user.agency?
+      = render :partial => 'agency_table'
+    -elsif current_user.camper?
+      = render :partial => 'camper_table'
+    - elsif current_user.super_admin?
+      - if params[:moderator_id] and (moderator = User.find params[:moderator_id])
+        %h3
+          Запросы обрабатывает:
+          = link_to moderator.profile.name, moderator.profile
+      - else
+        %h3 Все запросы
+      = render partial: 'moderator_table'
+    - else
+      - if collection[:mine].any?
+        %h3 Взятые запросы
+        - @collection = collection[:mine]
+        = render partial: 'moderator_table'
+
+      - if collection[:open].any?
+        %h3 Новые запросы
+        - @collection = collection[:open]
+        = render partial: 'moderator_table'

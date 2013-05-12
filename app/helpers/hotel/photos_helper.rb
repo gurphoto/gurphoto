@@ -1,0 +1,2 @@
+module Hotel::PhotosHelper
+end

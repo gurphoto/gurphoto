@@ -1,0 +1,39 @@
+.logs
+  %h3 Лог изменений
+
+  = table do
+    %tr
+      %th Пользователь
+      %th Изменено
+      %th Свойство
+      %th Новое значение
+      %th Старое значения
+      %th Время
+    - collection.each do |change|
+      %tr
+        - user = User.find(change.user)
+        %td
+          - if user
+            - if user.profile
+              = user.profile.name
+            - else
+              = user.email
+
+            %span.green
+              = "[#{user.human_type}]"
+          - else
+            \-
+        %td= link_to change.human_model_name, change.model.find(change.record_id)
+        %td= change.human_attribute_name
+        %td
+          - if change.field_type == 'boolean'
+            = change.new_value == 't' ? 'Да' : 'Нет'
+          - else
+            = change.new_value
+        %td
+          - if change.field_type == 'boolean'
+            = change.old_value == 't' ? 'Да' : 'Нет'
+          - else
+            = change.old_value
+        %td= l change.created_at, format: :long
+

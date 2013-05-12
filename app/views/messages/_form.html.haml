@@ -1,0 +1,6 @@
+= nice_form_for [parent, resource] do |f|
+  = f.errors_for
+  = f.text_area :text, rows: 4, style: 'width:98%'
+  = f.actions do
+    = f.submit 'Отправить', class: 'btn btn-primary'
+    = link_to 'Отмена', parent_path, class: 'btn'

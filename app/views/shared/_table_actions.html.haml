@@ -1,0 +1,5 @@
+- if can? :edit, resource
+  = icon_link_to 'pencil', '', edit_resource_path(resource)
+
+- if can? :destroy, resource
+  = icon_link_to 'trash', '', resource, confirm: 'Вы уверены, что хотите удалить?', method: :delete

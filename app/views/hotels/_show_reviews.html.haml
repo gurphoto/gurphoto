@@ -1,0 +1,26 @@
+.reviews
+  - if can? :create, Hotel::Review
+    = link_to 'Добавить отзыв', new_hotel_review_path(hotel_id: resource.id), class: 'btn btn-success'
+  .items
+    - if reviews.empty?
+      .no-found Ни одного комментария ещё не добавлено.
+    - else
+      - reviews.each do |review|
+        .item{ class: "character#{review.character_id}" }
+          .info
+            %span.name= review.name
+            %span.date= l(review.created_at, format: :short)
+          .text= review.text
+          - if can? :edit, review
+            %br
+
+            - if review.published
+              = link_to 'Снять с публикации', '#', class: 'btn btn-mini btn-inverse change-published unpublished', data: { url: hotel_review_path(review) }
+            - else
+              = link_to 'Опубликовать', '#', class: 'btn btn-mini btn-success change-published', data: { url: hotel_review_path(review) }
+
+            .pull-right.actions
+              = link_to edit_hotel_review_path(review), class: 'btn btn-mini' do
+                %i.icon-pencil
+              = link_to hotel_review_path(review), :confirm => 'Уверены, что хотите удалить?', :method => :delete, class: 'btn btn-mini' do
+                %i.icon-trash

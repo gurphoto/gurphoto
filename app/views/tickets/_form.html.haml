@@ -1,0 +1,20 @@
+.tickets-form
+  = nice_form_for @ticket do |f|
+    = f.errors_for
+
+    = f.wrapper :rooms do
+      %ol(style="margin-top:5px")
+        - current_user.basket_items.each do |i|
+          %li
+            = hidden_field_tag 'ticket[room_ids][]', i.room_id
+            = i.room.name
+            в гостинице
+            = "\"#{i.room.hotel.name}\""
+            = icon_link_to 'eye-open', '', "#{hotel_path(i.room.hotel)}#room-#{i.room_id}", title: 'Смотреть номер на странице гостиницы', target: '_blank'
+
+    - f.object.build_message
+    = f.fields_for :message do |ff|
+      = ff.text_area :text, rows: 3, class: 'input-xxlarge'
+
+    .actions
+      = f.submit 'Создать'

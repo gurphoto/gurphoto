@@ -1,0 +1,34 @@
+.user-campers
+  -$no_tourist = true
+
+  %h3.with-button
+    Все туристы
+    -# if can? :create, User::Tourist
+      = link_to 'Новый турист', new_user_tourist_path, class: 'btn btn-mini btn-success'
+
+  = table :stripped do
+    %tr
+      %th= sortable 'surname', 'Турист'
+
+    - collection.each do |resource|
+      %tr
+        %td= resource.surname
+        %td
+          Электронный адрес:
+          = resource.email
+          %br
+          Телефоны:
+          = resource.profile.phones
+          %br
+          Skype:
+          = resource.profile.skype
+          %br
+          ICQ:
+          = resource.profile.icq
+          %br
+          Адрес:
+          = resource.profile.address
+
+        %td.actions
+          = icon_link_to :pencil, '', edit_resource_path(resource)
+          = icon_link_to :trash, '', resource, confirm: 'Are you sure?', method: :delete

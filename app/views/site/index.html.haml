@@ -1,0 +1,15 @@
+.site
+  - if @page
+    %h1.with-button
+      = @page.title
+      - if can? :edit, @page
+        = link_to 'Редактировать', edit_page_path(@page), class: 'btn btn-mini btn-success'
+    .row-fluid
+      .span12
+        = raw @page.content
+
+        = render_cell :last_reviews, :display
+
+    .row-fluid
+      .span12
+

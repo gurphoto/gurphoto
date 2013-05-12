@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @hotel_room_list.name
+%p
+  %b Position:
+  = @hotel_room_list.position
+
+= link_to 'Edit', edit_hotel_room_list_path(@hotel_room_list)
+\|
+= link_to 'Back', hotel_room_lists_path

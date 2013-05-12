@@ -1,0 +1,32 @@
+.filters-form
+  = nice_form_for resource do |f|
+    = f.errors_for
+
+  = nested_form_for resource, html: { class: 'form-horizontal' } do |f|
+    .control-group
+      = f.label :name, class: 'control-label'
+      .controls
+        = f.text_field :name
+
+    .control-group
+      = f.label :show_in_search, class: 'control-label'
+      .controls
+        = f.check_box :show_in_search
+
+    .control-group
+      = f.label :include_to_print, class: 'control-label'
+      .controls
+        = f.check_box :include_to_print
+
+    .control-group
+      = f.label :items, class: 'control-label'
+      .controls
+        = f.fields_for :items do |ff|
+          = ff.text_field :name
+          = ff.link_to_remove class: 'btn' do
+            %i.icon-remove
+        = f.link_to_add 'Добавить', :items, class: 'btn'
+
+    .form-actions
+      = f.submit 'Сохранить', class: 'btn btn-primary'
+      = link_to 'Отмена', collection_path, class: 'btn'

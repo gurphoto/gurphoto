@@ -1,0 +1,67 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+type_one:
+  id: 1
+  filter_id: 1
+  name: Гостиница
+
+type_two:
+  id: 2
+  filter_id: 1
+  name: Минигостиница
+
+type_three:
+  id: 3
+  filter_id: 1
+  name: Гостевой дом
+
+type_four:
+  id: 4
+  filter_id: 1
+  name: Пансионат
+
+type_five:
+  id: 5
+  filter_id: 1
+  name: Санаторий
+
+classification_one:
+  id: 6
+  filter_id: 2
+  name: Экономичный
+
+classification_two:
+  id: 7
+  filter_id: 2
+  name: Экономичный +
+
+classification_three:
+  id: 8
+  filter_id: 2
+  name: Экономичный ++
+
+classification_four:
+  id: 9
+  filter_id: 2
+  name: Экономичный +++
+
+classification_five:
+  id: 10
+  filter_id: 2
+  name: Комфорт
+
+classification_six:
+  id: 11
+  filter_id: 2
+  name: Комфорт +
+
+classification_seven:
+  id: 12
+  filter_id: 2
+  name: Комфорт ++
+
+classification_eight:
+  id: 13
+  filter_id: 2
+  name: Комфорт +++
+

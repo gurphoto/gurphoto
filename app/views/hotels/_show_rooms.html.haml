@@ -1,0 +1,110 @@
+- groups = resource.rooms.group_by { |i| i.type_id }
+
+:javascript
+  function openRoom(id){
+    id = id.toString();
+
+    (function(j){
+      setTimeout(function(){
+        j('a[href="#rooms-section"]').click();
+
+        setTimeout(function(){
+          j('a[data-toggle="tab"][data-rooms]').each(function(){
+            if(j.inArray(id, j(this).data('rooms').toString().split(' ')) !== -1){
+              j(this).click();
+            }
+          });
+
+          setTimeout(function(){
+            j('#room-collapse-' + id).collapse('show');
+          }, 100);
+        }, 100);
+      }, 100);
+    })(jQuery);
+  }
+
+  jQuery(function(j){
+    if(location.href.indexOf('#room') !== -1)
+      openRoom(location.hash.replace(/[^0-9]+/, ''));
+  });
+
+.rooms
+  .tabbable.tabs-left
+    %ul.nav.nav-tabs#tab-room
+      - Hotel::Room::Type.all.each_with_index do |type, i|
+        %li(class="#{'active' if i == 0}")
+          %a(href="#room-type-#{type.id}" data-toggle="tab" data-rooms="#{groups[type.id].map { |i| i.id }.join(' ') if groups[type.id]}")
+            = type.name
+            = "(#{groups[type.id] ? groups[type.id].count : 0})"
+    .tab-content
+      - Hotel::Room::Type.all.each_with_index do |type, i|
+        .tab-pane(id="room-type-#{type.id}" class="#{'active' if i == 0}")
+          - unless groups[type.id]
+            .alert.alert-info Номеров этого типа нет в этой гостинице.
+          - else
+            .accordion#rooms-accordion
+              - groups[type.id].each do |r|
+                .accordion-group
+                  .accordion-heading
+                    %a(class="accordion-toggle" data-toggle="collapse" data-parent="#rooms-accordion" href="#room-collapse-#{r.id}")= r.name
+
+                  .accordion-body.collapse(id="room-collapse-#{r.id}")
+                    .accordion-inner
+                      .row-fluid
+                        .span6
+                          %ul.thumbnails
+                            - r.photos.each do |photo|
+                              %li= link_to image_tag(photo.attach(:thumb)), photo.attach.url, class: 'thumbnail', rel: 'gallery', title: photo.description
+
+                        .span6
+                          %p
+                            %b Площадь:
+                            - if user_signed_in?
+                              = r.area
+                              кв. м.
+                            - else
+                              = content_for :hidden_field
+
+                          - %w(all_count places_count additional_places_count).each do |name|
+                            %p
+                              %b= r.class.human_attribute_name(name) + ':'
+                              = r[name] || '-'
+
+                          %br
+                          - %w(winter summer high_season).each do |name|
+                            %p
+                              %b= r.class.human_attribute_name("price_#{name}_from") + ':'
+                              - if user_signed_in?
+                                = r.send("price_#{name}")
+                              - else
+                                = content_for :hidden_field
+                          %br
+
+                          - r.all_list_values.each do |value|
+                            %p
+                              %b= value.list.name + ':'
+                              = value.item.name
+
+                          - r.all_field_values.each do |value|
+                            - next unless value.value.present?
+                            %p
+                              %b= value.field[:name] + ':'
+                              - if !value.field.only_signed || (user_signed_in? && value.field.only_signed)
+                                - value_text = value.value || value.service.default_value || 'Нет'
+                                - if value.field.multiline
+                                  = n2br value_text
+                                - else
+                                  = value_text
+                              - else
+                                = content_for :hidden_field
+
+                        - if user_signed_in?
+                          - if (current_user.agency?) || (current_user.camper?)
+                            - unless BasketItem.exists?({ room_id: r.id, user_id: current_user.id })
+                              = link_to 'Добавить этот номер в запрос', '#', class: 'btn btn-success btn-mini add-to-basket', data: { room: r.id }
+                            - else
+                              .btn.btn-mini Номер уже добавлен в запрос
+                          = link_to 'Распечатать', hotel_room_path(r), class: 'btn btn-success btn-mini'
+
+            .pull-right
+              %p.small * кликните по названию, чтобы увидеть полную информацию о номере и посмотреть фотографии.

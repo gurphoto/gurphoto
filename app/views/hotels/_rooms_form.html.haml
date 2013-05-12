@@ -1,0 +1,123 @@
+:javascript
+  jQuery(function(j){
+    function updateSlider(){
+      j('div.slider').each(function(){
+        var block = j(this).closest('div.controls');
+        var fromField = block.find('input.from');
+        var toField = block.find('input.to');
+
+        fromField.val(fromField.val() || 500);
+        toField.val(toField.val() || 7500);
+
+        j(this).slider({
+          range: true,
+          step: 5,
+          min: 100,
+          max: 10000,
+          values: [ fromField.val(), toField.val() ],
+          slide: function(event, ui){
+            j(ui.handle).closest('div.controls').find('div.indicator').html(ui.values[0] + ' - ' + ui.values[1] + ' руб.');
+            fromField.val(ui.values[0]);
+            toField.val(ui.values[1]);
+          }
+        });
+
+        block.find('div.indicator').html(fromField.val() + ' - ' + toField.val() + ' руб.');
+      });
+
+      j('div.single-slider').each(function(){
+        var block = $(this);
+        var from = block.data('from');
+        var to = block.data('to');
+        var after = block.data('after') || '';
+        var defaul = block.data('default');
+
+        var valueField = block.closest('div.controls').find('input[type=hidden]');
+        var indicator = block.closest('div.controls').find('div.indicator');
+
+        valueField.val(parseInt(valueField.val()) || defaul);
+        indicator.html(valueField.val() + after);
+
+        block.slider({
+          min: from,
+          max: to,
+          value: valueField.val(),
+
+          slide: function(event, ui){
+            valueField.val(ui.value);
+            indicator.html(valueField.val() + after);
+          }
+        });
+      });
+    }
+
+    j('form').bind('nested:fieldAdded', updateSlider);
+
+    updateSlider();
+  });
+
+= f.fields_for :rooms do |ff|
+  .well
+    .row-fluid
+      .span6
+        = ff.text_field :name
+        = ff.wrapper :type_id do
+          = ff.collection_select :type_id, Hotel::Room::Type.all, :id, :name
+
+        = ff.text_field :places_count
+        = ff.text_field :additional_places_count
+        = ff.text_field :area
+
+        = ff.text_field :all_count, autocomplete: 'off'
+
+        = ff.text_field :price_summer_from, class: 'from input-small'
+        = ff.text_field :price_high_season_from, class: 'from input-small'
+        = ff.text_field :price_winter_from, class: 'from input-small'
+
+        = ff.wrapper :photos do
+          = ff.fields_for :photos do |fff|
+            = fff.orig_file_field :attach
+            = fff.orig_text_field :description, placeholder: 'Описание', class: 'input-large'
+            - if fff.object.attach.file?
+              = link_to fff.object.attach.url, rel: 'gallery', title: 'Посмотреть', class: 'btn' do
+                %i.icon-eye-open
+            = fff.link_to_remove class: 'btn btn-mini' do
+              %i.icon-remove
+
+          = ff.link_to_add :photos, class: 'btn' do
+            %i.icon-plus
+            Добавить изображение
+
+      .span6
+        - ff.object.all_list_values.each do |value|
+          = ff.fields_for :list_values, value do |ff|
+            .control-group
+              = ff.hidden_field :list_id
+              = ff.label :item_id, class: 'control-label' do
+                = value.list.name
+              .controls
+                = ff.collection_select :item_id, value.list.items, :id, :name
+
+        - ff.object.all_field_values.each do |value|
+          = ff.fields_for :field_values, value do |fff|
+            - fff.object.value = fff.object.field.default_value unless fff.object.value
+            = fff.hidden_field :field_id
+            .control-group
+              = fff.label :value, class: 'control-label' do
+                = value.field.name
+              .controls
+                - if value.field.multiline
+                  = fff.orig_text_area :value, rows: 2, class: 'input-xlarge'
+                - else
+                  = fff.orig_text_field :value, class: 'input-xlarge'
+
+
+    .pull-right
+      = ff.link_to_remove class: 'btn' do
+        %i.icon-minus
+        Убрать этот номер
+
+    %br
+    %br
+
+= f.link_to_add 'Добавить номер', :rooms, class: 'btn'

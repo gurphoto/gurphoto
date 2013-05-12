@@ -1,0 +1,38 @@
+%p#notice= notice
+%h3
+  Хотельер
+  = "##{resource.id}"
+
+%p
+  %strong Емайл:
+  = resource.email
+
+.row-fluid
+  .span6
+    %p
+      %b Полное имя:
+      = resource.profile.name
+    %p
+      %b Телефоны:
+      = resource.profile.phones
+    %p
+      %b Skype:
+      = resource.profile.skype
+    %p
+      %b ICQ:
+      = resource.profile.icq
+  .span6
+    %p
+      %b Название компании:
+      = resource.profile.company_name
+    %p
+      %b Адрес:
+      = resource.profile.address
+    %p
+      %b Номер договора:
+      = resource.profile.agreement
+
+
+= link_to 'Редактировать', edit_user_hotelier_path(@user_hotelier)
+\|
+= link_to 'Все хотельеры', user_hoteliers_path

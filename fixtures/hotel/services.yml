@@ -1,0 +1,26 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 1
+  default: true
+  name: Наличие кухни
+
+two:
+  id: 3
+  default: true
+  name: Питание
+
+three:
+  id: 2
+  default: false
+  name: Бар
+
+four:
+  id: 4
+  default: false
+  name: Бассеин
+
+five:
+  id: 5
+  default: false
+  name: СПА

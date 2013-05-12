@@ -1,0 +1,15 @@
+.contact
+  %h3 Контакты
+  = nice_form_for @message, url: contact_path do |f|
+    = f.errors_for
+    = f.text_field :name
+    = f.text_field :email
+    = f.text_field :subject
+    = f.wrapper :body do
+      = f.orig_text_area :body, rows: 5, cols: 40, class: 'input-xxlarge'
+      %br
+      %br
+      %p Спасибо за Ваше сообщение, мы ответим Вам в ближайшее время. Не забудьте в тексте сообщения оставить свой электронный адрес!
+
+    = f.simple_captcha label: 'Введите символы'
+    = f.submit 'Отправить'

@@ -1,0 +1,15 @@
+.hotelier_hotel-show
+  %h2.with-button
+    = resource.name
+
+    - if can? :update, resource
+      = link_to 'Редактировать профиль', edit_resource_path(resource), class: 'btn btn-success btn-mini'
+
+  .row-fluid
+    .span6
+      %p
+        %b Идентификационный номер гостиницы:
+        = resource.hotel_id
+      %p
+        %b Идентификационный номер пользователя:
+        = resource.user_id

@@ -1,0 +1,16 @@
+%h3.with-button
+  Все страницы
+  - if can? :create, Page
+    = link_to 'Добавить', new_resource_path, class: 'btn btn-mini btn-success'
+
+= table do
+  %tr
+    %th Заголовок
+    %th(width="140") Алиас
+    %th.actions(width="35")
+
+  - collection.each do |resource|
+    %tr
+      %td= resource.title
+      %td= resource.alias
+      %td= render 'shared/table_actions', resource: resource

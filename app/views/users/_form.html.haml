@@ -1,0 +1,11 @@
+.users-form
+  .well
+    = nested_nice_form_for resource, html: { multipart: true} do |f|
+      = f.errors_for
+
+      = f.text_field :email
+      = f.text_field :password, hint: resource.new_record? ? nil : 'Указывайте только, если требуется сменить пароль.'
+      -#= render :partial => 'hotelier_hotel_form', locals: { f: f }
+      = f.actions do
+        = f.submit 'Сохранить'
+        = link_to 'Отмена', users_path, class: 'btn'

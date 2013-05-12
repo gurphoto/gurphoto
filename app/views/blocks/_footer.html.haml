@@ -1,0 +1,24 @@
+.footer
+  .container
+    .wrapper
+      .row-fluid
+        .span7
+          .menu
+            %ul.unstyled
+              %li= link_to 'Акции', articles_path
+              %li= link_to 'Галерея', hotels_path
+              %li= link_to 'Услуги', show_page_path('services')
+              %li= link_to 'Партнеры', partners_site_index_path
+              %li= link_to 'Документы', documents_path
+              %li.last= link_to 'Контакты', contact_path
+          %p.copyright
+            = "2011 - #{Time.now.year}"
+            © Все права защищены и охраняются законом. При копировании любых материалов с сайта,
+            %br
+            активная прямая текстовая ссылка на www.gurfoto.ru обязательна.
+        .span5
+          %p.contacts
+            Разработка и сопровождение:
+            %br
+            Фотографическое агентство GurFoto
+            -# = link_to 'ArtModel.ru', 'http://www.artmodel.ru'

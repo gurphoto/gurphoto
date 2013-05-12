@@ -1,0 +1,20 @@
+.articles-form
+  = nice_form_for @article, html: { multipart: true } do |f|
+    = f.errors_for
+    = f.text_field :title, class: 'input-xlarge'
+    = f.text_area :description, rows: 3, class: 'input-xxlarge'
+    = f.text_area :content, rows: 10, class: 'input-xxlarge tinymce'
+    = f.wrapper :image do
+      = f.orig_file_field :image
+      - if resource.image.exists?
+        %br
+        = image_tag resource.image(:medium)
+
+    = tinymce
+
+    - if resource.image.exists?
+      = f.check_box :image_delete
+
+    = f.actions do
+      = f.submit 'Сохранить', name: :save
+      = link_to 'Отмена', articles_path, class: 'btn'

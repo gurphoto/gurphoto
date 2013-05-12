@@ -1,0 +1,9 @@
+.articles-show
+  %h1.title.with-button
+    = resource.title
+    %small= l resource.created_at, format: :long
+    - if can? :edit, resource
+      = link_to 'Редактировать', edit_resource_path(resource), class: 'btn btn-success btn-mini'
+  = image_tag resource.image.url(:medium), class: 'image'
+  = raw resource.content
+

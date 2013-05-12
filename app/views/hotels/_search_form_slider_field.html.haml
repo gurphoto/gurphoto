@@ -1,0 +1,18 @@
+- data ||= {}
+- from = params[name] ? params[name]['from'] : data[:min]
+- to = params[name] ? params[name]['to'] : data[:max]
+
+.control-group
+  %label.control-label= text
+  .controls.slider-container{ data: data }
+    %table.slider-table
+      %tr
+        %td.slider-column
+          /.indicator
+          .slider
+        %td.slider-fields
+          от
+          = text_field_tag "#{name}[from]", from, class: 'from-field input-mini'
+        %td.slider-fields
+          до
+          = text_field_tag "#{name}[to]", to, class: 'to-field input-mini'

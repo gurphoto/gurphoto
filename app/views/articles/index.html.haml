@@ -1,0 +1,25 @@
+.articles
+  %h1.with-button
+    Акции
+    - if can? :create, Article
+      = link_to 'Добавить акцию', new_article_path, class: 'btn btn-mini btn-success'
+    - if can? :edit, Article
+      = link_to 'Показать список', articles_path(table: 1), class: 'btn btn-mini btn-success'
+
+  .items
+    - collection.each do |resource|
+      .item
+        - if resource.image.exists?
+          = image_tag resource.image.url(:thumb)
+        - else
+          = image_tag '/assets/missing60x60.png'
+        .info
+          %h4= resource.title
+          %small= Russian.l resource.created_at, format: :long
+          %p
+            %span.description= resource.description
+            %br
+            %span.more= link_to 'Подробней', resource
+
+
+    = will_paginate collection, previous_label: '«', next_label: '»'

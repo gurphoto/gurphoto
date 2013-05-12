@@ -1,0 +1,46 @@
+.hotels
+  %h1.with-button
+    Галерея
+    - if can? :create, Hotel
+      = link_to 'Добавить серию', new_hotel_path, class: 'btn btn-mini btn-success'
+
+  - if @hotels.empty?
+    %p Ничего не найдено
+  - else
+    %table.table.table-striped
+      %tr
+        %th.first= sortable 'hotels.name', 'Цикл фотографий'
+
+        - if can? :edit, Hotel
+          %th.actions(width="38")
+
+      %tbody
+        - @hotels.each do |hotel|
+          %tr
+            - if can? :read, hotel
+              %td= link_to hotel.name, hotel
+            - else
+              %td= hotel.name
+
+            - if can? :edit, hotel
+              %td.actions
+                = link_to edit_resource_path(hotel) do
+                  %i.icon-pencil
+                - if can? :delete, hotel
+                  = link_to hotel, :confirm => 'Вы уверены, что хотите удалить эту гостиницу?', :method => :delete do
+                    %i.icon.icon-trash
+
+    .row-fluid
+      .pull-left
+        = will_paginate @hotels, previous_label: '«', next_label: '»'
+      .pull-right
+        .pagination
+          %ul
+            %li.disabled= link_to 'На страницу:', '#', onclick: 'return false', class: 'no-line'
+            - [10, 20, 50].each do |c|
+              - params[:per_page] = 10 unless params[:per_page]
+
+              - if params[:per_page].to_i != c
+                %li= link_to c, hotels_path(params.dup.merge(per_page: c, page: 1))
+              - else
+                %li.disabled= link_to c, '#', onclick: 'return false'

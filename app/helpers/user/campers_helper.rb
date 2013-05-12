@@ -1,0 +1,2 @@
+module User::CampersHelper
+end

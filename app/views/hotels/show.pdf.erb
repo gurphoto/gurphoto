@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet" />
+    <%= stylesheet_link_tag 'application' %>
+  </head>
+  <body>
+
+    <table width="90%" align="center" border="0" cellspacing="3" cellpadding="3">
+      <tbody>
+        <tr>
+          <td align="center"><h4><strong>Паспорт туристической услуги<br><br>к заявке №________ от "____"________ 20___</strong></h4></td>
+          <td><img src="<% asset_path 'logem.png' %>"</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <table width="90%" border="0" cellspacing="2" cellpadding="3" style="">
+      <tbody style=""><tr style="">
+          <td width="206" valign="top">
+            <p>Название гостиницы:</p>
+          </td>
+          <td width="432" colspan="3" valign="top" bgcolor="#f5f4f4">
+          <i><%= resource.name %></i>
+          </td>
+        </tr>
+        <tr style="">
+          <% resource.all_filter_values.each do |value| %>
+            <td width="206" valign="top">
+              <p><%= value.filter.name %>:</p>
+            </td>
+            <td width="132" valign="top" bgcolor="#f5f4f4">
+              <i><%= value.item.name %></i>
+            </td>
+          <% end %>
+        </tr>
+        <tr style="">
+          <td width="206" valign="top" style="">
+            <p>Адрес:</p>
+          </td>
+          <td width="432" colspan="3" valign="top"  bgcolor="#f5f4f4">
+            <i></i>
+          </td>
+        </tr>
+        <tr style="">
+          <td width="206" valign="top" style="">
+            <p>Проезд:</p>
+          </td>
+          <td width="432" colspan="3" valign="top"  bgcolor="#f5f4f4">
+            <i></i>
+          </td>
+        </tr>
+        <tr style="">
+          <td width="206" valign="top" style="">
+            <p>Питание:</p>
+          </td>
+          <td width="432" colspan="3" valign="top"  bgcolor="#f5f4f4">
+            <i></i>
+          </td>
+        </tr>
+        <tr style="">
+          <td width="206" valign="top" style="">
+            <p>Расчетный час:</p>
+          </td>
+          <td width="432" colspan="3" valign="top"  bgcolor="#f5f4f4">
+            <i></i>
+          </td>
+        </tr>
+        <tr style="">
+          <td width="638" colspan="4" valign="top" style="">
+            <p>Документы необходимые для заселения:</p></td>
+        </tr>
+        <tr style="">
+          <td width="638"  colspan="4" valign="top">
+            <i>паспорт, свидетельство о рождении, сан книжка, справка из меддиспансера</i>
+          </td>
+        </tr>
+    </tbody></table>
+
+    <i></i>
+
+    <h4>Характеристики гостиничного номера</h4>
+
+    <table width="90%" border="0" cellspacing="2" cellpadding="3" style="">
+      <tbody style=""><tr style="">
+          <td width="206" valign="top" style="">
+            <p>Тип номера:</p>
+          </td>
+          <td width="113" valign="top" style="">
+            <i></i>
+          </td>
+          <td width="227" valign="top" style="">
+            <p>Кол-во мест:</p>
+          </td>
+          <td width="92" valign="top" style="">
+            <i></i>
+          </td>
+        </tr>
+        <tr style="">
+          <td width="206" valign="top" style="">
+            <p>Тип номера по гостиничной классификации:</p>
+          </td>
+          <td width="113" valign="top" style="">
+            <i></i>
+          </td>
+          <td width="227" valign="top" style="">
+            <p>Кол-во дополнительных мест:</p>
+          </td>
+          <td width="92" valign="top" style="">
+            <i></i>
+          </td>
+        </tr>
+        <tr style="">
+          <td width="206" valign="top" style="">
+            <p>Площадь номера, кв.м</p>
+          </td>
+          <td width="113" valign="top" style="">
+            <i></i>
+          </td>
+          <td width="227" valign="top" style="">
+            <i></i>
+          </td>
+          <td width="92" valign="top" style="">
+            <i></i>
+          </td>
+        </tr>
+    </tbody></table>
+
+    <i></i>
+
+    <h4>Стоимость</h4>
+
+    <table width="90%" border="0" cellspacing="2" cellpadding="3" style="">
+      <tbody style=""><tr style="">
+          <td width="206" valign="top" style="">
+            <i></i>
+          </td>
+          <td width="220" valign="top" style="">
+            <p>Номер</p>
+          </td>
+          <td width="213" valign="top" style="">
+            <p>Доп. место</p>
+          </td>
+        </tr>
+        <tr style="">
+          <td width="206" valign="top" style="">
+            <p>Стоимость в сутки:</p>
+          </td>
+          <td width="220" valign="top" style="">
+            <i></i>
+          </td>
+          <td width="213" valign="top" style="">
+            <i></i>
+          </td>
+        </tr>
+        <tr style="">
+          <td width="206" valign="top" style="">
+            <p>Летний период</p>
+          </td>
+          <td width="220" valign="top" style="">
+            <i></i>
+          </td>
+          <td width="213" valign="top" style="">
+            <i></i>
+          </td>
+        </tr>
+        <tr style="">
+          <td width="206" valign="top" style="">
+            <p>Высокий период</p>
+          </td>
+          <td width="220" valign="top" style="">
+            <i></i>
+          </td>
+          <td width="213" valign="top" style="">
+            <i></i>
+          </td>
+        </tr>
+        <tr style="">
+          <td width="206" valign="top" style="">
+            <p>Зимний период</p>
+          </td>
+          <td width="220" valign="top" style="">
+            <i></i>
+          </td>
+          <td width="213" valign="top" style="">
+            <i></i>
+          </td>
+        </tr>
+    </tbody></table>
+
+
+
+    <h4>Прочее</h4>
+
+    <table width="90%" border="0" cellspacing="2" cellpadding="3" style="">
+      <tbody style=""><tr style="">
+          <td width="159" valign="top" style="">
+            <p>Санузел:</p>
+          </td>
+          <td width="160" valign="top" style="">
+            <i></i>
+          </td>
+          <td width="160" valign="top" style="">
+            <p>Балкон:</p>
+          </td>
+          <td width="160" valign="top" style="">
+            <i></i>
+          </td>
+        </tr>
+        <tr style="">
+          <td width="159" valign="top" style="">
+            <p>Телевизор:</p>
+          </td>
+          <td width="160" valign="top" style="">
+            <i></i>
+          </td>
+          <td width="160" valign="top" style="">
+            <p>Холодильник:</p>
+          </td>
+          <td width="160" valign="top" style="">
+            <i></i>
+          </td>
+        </tr>
+    </tbody></table>
+
+  </body>
+</html>

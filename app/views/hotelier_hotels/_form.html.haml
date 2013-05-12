@@ -1,0 +1,12 @@
+.hotelier_hotel-form
+  = nice_form_for @hotelier_hotel do |f|
+    = f.errors_for
+    .row-fluid
+      .span6
+        = protected_text_field f, :user_id
+        = protected_text_field f, :hotel_id
+      .span12
+        = f.actions do
+          = f.submit 'Сохранить!!!'
+          - if resource.name
+            = link_to 'Отмена!!!', resource, class: 'btn'

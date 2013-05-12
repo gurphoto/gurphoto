@@ -1,0 +1,27 @@
+%p#notice= notice
+%h3
+  Завершение регистрации
+  = "##{resource.id}"
+
+%p
+  %strong Емайл:
+  = resource.email
+
+.row-fluid
+  .span6
+    %p
+      %b Имя:
+      = resource.profile.name
+    %p
+      %b Телефоны:
+      = resource.profile.phones
+    %p
+      %b Skype:
+      = resource.profile.skype
+    %p
+      %b ICQ:
+      = resource.profile.icq
+
+= link_to 'Редактировать', edit_user_camper_path(@user_camper)
+\|
+= link_to 'Все туристы', user_campers_path

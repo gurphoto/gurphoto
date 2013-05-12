@@ -1,0 +1,19 @@
+
+.hotels-show
+  %h1.with-button
+    = resource.name
+
+    - if can? :edit, Hotel
+      = link_to 'Редактировать', edit_resource_path, class: 'btn btn-mini btn-success'
+
+    %p= resource.description
+
+  .images
+    %ul.thumbnails
+      - resource.images.each do |a|
+        %li
+          = link_to a.attach.url, rel: 'gallery', title: a.description, class: 'thumbnail' do
+            = image_tag a.attach.url :thumb, alt: a.description
+
+
+

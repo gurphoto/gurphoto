@@ -1,0 +1,2 @@
+class DocumentsController < SortableController
+end

@@ -1,0 +1,387 @@
+GIT
+  remote: git://github.com/alexesDev/booter.git
+  revision: 856bfb9d8a6a032823593d71331b62d02b9e4938
+  specs:
+    booter (1.0.0.rc1)
+      rails (~> 3.2)
+
+GIT
+  remote: git://github.com/alexesDev/change_log.git
+  revision: a92ba7b442d6153544e0773caddbfb65c481f5c9
+  specs:
+    change_log (1.0.1)
+
+GIT
+  remote: git://github.com/alexesDev/seed_dump.git
+  revision: 57f0783b2bb34b1ec4a996ffb2b7b12f0ae2945e
+  specs:
+    seed_dump (0.3.4)
+
+GIT
+  remote: git://github.com/codegram/markdownizer.git
+  revision: f091fa0c235e35b88ceedad5211223137cf64302
+  specs:
+    markdownizer (0.3.6)
+      activerecord (>= 3.0.3)
+      coderay
+      rdiscount
+
+GIT
+  remote: git://github.com/galetahub/simple-captcha.git
+  revision: f0d5a6d4ca233511d84bfba139dfacdded4bdbb9
+  specs:
+    galetahub-simple_captcha (0.1.3)
+
+GIT
+  remote: git://github.com/thoughtbot/paperclip.git
+  revision: 70f0f1fea030e6884c99772e1860b3478b2a8347
+  specs:
+    paperclip (3.1.4)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (>= 0.0.2)
+      mime-types
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    actionmailer (3.2.11)
+      actionpack (= 3.2.11)
+      mail (~> 2.4.4)
+    actionpack (3.2.11)
+      activemodel (= 3.2.11)
+      activesupport (= 3.2.11)
+      builder (~> 3.0.0)
+      erubis (~> 2.7.0)
+      journey (~> 1.0.4)
+      rack (~> 1.4.0)
+      rack-cache (~> 1.2)
+      rack-test (~> 0.6.1)
+      sprockets (~> 2.2.1)
+    activeadmin (0.4.4)
+      bourbon (>= 1.0.0)
+      devise (>= 1.1.2)
+      fastercsv
+      formtastic (~> 2.1.1)
+      inherited_resources (>= 1.3.1)
+      jquery-rails (>= 1.0.0)
+      kaminari (>= 0.13.0)
+      meta_search (>= 0.9.2)
+      rails (>= 3.0.0)
+      sass (>= 3.1.0)
+    activemodel (3.2.11)
+      activesupport (= 3.2.11)
+      builder (~> 3.0.0)
+    activerecord (3.2.11)
+      activemodel (= 3.2.11)
+      activesupport (= 3.2.11)
+      arel (~> 3.0.2)
+      tzinfo (~> 0.3.29)
+    activeresource (3.2.11)
+      activemodel (= 3.2.11)
+      activesupport (= 3.2.11)
+    activesupport (3.2.11)
+      i18n (~> 0.6)
+      multi_json (~> 1.0)
+    acts_as_list (0.1.8)
+    addressable (2.3.2)
+    arel (3.0.2)
+    bcrypt-ruby (3.0.1)
+    bluecloth (2.2.0)
+    bootstrap-will_paginate (0.0.7)
+      will_paginate
+    bourbon (2.1.1)
+      sass (>= 3.1)
+    builder (3.0.4)
+    cancan (1.6.7)
+    capybara (1.1.2)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      selenium-webdriver (~> 2.0)
+      xpath (~> 0.1.4)
+    cells (3.8.5)
+      actionpack (~> 3.0)
+      railties (~> 3.0)
+    childprocess (0.3.5)
+      ffi (~> 1.0, >= 1.0.6)
+    chronic (0.6.7)
+    chunky_png (1.2.6)
+    cocaine (0.2.1)
+    coderay (1.0.7)
+    coffee-rails (3.2.2)
+      coffee-script (>= 2.2.0)
+      railties (~> 3.2.0)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.3.3)
+    compass (0.12.2)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
+    compass-rails (1.0.3)
+      compass (>= 0.12.2, < 0.14)
+    daemons (1.1.9)
+    database_cleaner (0.8.0)
+    default_value_for (2.0.1)
+    delayed_job (3.0.3)
+      activesupport (~> 3.0)
+    delayed_job_active_record (0.3.2)
+      activerecord (> 2.1.0)
+      delayed_job (~> 3.0.0)
+    devise (2.1.2)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (~> 3.1)
+      warden (~> 1.2.1)
+    devise-encryptable (0.1.1)
+      devise (>= 2.1.0.rc)
+    diff-lcs (1.1.3)
+    em-websocket (0.3.8)
+      addressable (>= 2.1.1)
+      eventmachine (>= 0.12.9)
+    erubis (2.7.0)
+    eventmachine (0.12.10)
+    execjs (1.4.0)
+      multi_json (~> 1.0)
+    factory_girl (4.0.0)
+      activesupport (>= 3.0.0)
+    fastercsv (1.5.5)
+    ffi (1.1.5)
+    formtastic (2.1.1)
+      actionpack (~> 3.0)
+    fssm (0.2.9)
+    guard (1.3.2)
+      listen (>= 0.4.2)
+      thor (>= 0.14.6)
+    guard-livereload (1.0.0)
+      em-websocket (>= 0.2.0)
+      guard (>= 1.1.0)
+      multi_json (~> 1.0)
+    guard-rspec (1.2.1)
+      guard (>= 1.1)
+    guard-spork (1.1.0)
+      guard (>= 1.1)
+      spork (>= 0.8.4)
+    haml (3.1.7)
+    haml-rails (0.3.4)
+      actionpack (~> 3.0)
+      activesupport (~> 3.0)
+      haml (~> 3.0)
+      railties (~> 3.0)
+    has_scope (0.5.1)
+    hike (1.2.2)
+    hpricot (0.8.6)
+    i18n (0.6.4)
+    inherited_resources (1.3.1)
+      has_scope (~> 0.5.0)
+      responders (~> 0.6)
+    journey (1.0.4)
+    jquery-rails (2.0.2)
+      railties (>= 3.2.0, < 5.0)
+      thor (~> 0.14)
+    jquery-ui-rails (1.1.0)
+      jquery-rails
+      railties (>= 3.1.0)
+    jquery_datepicker (0.4)
+    json (1.7.7)
+    kaminari (0.13.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      railties (>= 3.0.0)
+    kgio (2.7.4)
+    launchy (2.1.2)
+      addressable (~> 2.3)
+    libwebsocket (0.1.5)
+      addressable
+    liquid (2.4.1)
+    listen (0.4.7)
+      rb-fchange (~> 0.0.5)
+      rb-fsevent (~> 0.9.1)
+      rb-inotify (~> 0.8.8)
+    mail (2.4.4)
+      i18n (>= 0.4.0)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
+    meta_search (1.1.3)
+      actionpack (~> 3.1)
+      activerecord (~> 3.1)
+      activesupport (~> 3.1)
+      polyamorous (~> 0.5.0)
+    mime-types (1.23)
+    mina (0.2.1)
+      open4
+      rake
+    multi_json (1.7.2)
+    nested_form (0.2.2)
+    nokogiri (1.5.5)
+    open4 (1.3.0)
+    orm_adapter (0.4.0)
+    paper_trail (2.6.3)
+      activerecord (~> 3.0)
+      railties (~> 3.0)
+    pg (0.14.0)
+    polyamorous (0.5.0)
+      activerecord (~> 3.0)
+    polyglot (0.3.3)
+    rack (1.4.5)
+    rack-cache (1.2)
+      rack (>= 0.4)
+    rack-ssl (1.3.3)
+      rack
+    rack-test (0.6.2)
+      rack (>= 1.0)
+    railroady (1.1.0)
+    rails (3.2.11)
+      actionmailer (= 3.2.11)
+      actionpack (= 3.2.11)
+      activerecord (= 3.2.11)
+      activeresource (= 3.2.11)
+      activesupport (= 3.2.11)
+      bundler (~> 1.0)
+      railties (= 3.2.11)
+    rails-footnotes (3.7.8)
+      rails (>= 3.0.0)
+    railties (3.2.11)
+      actionpack (= 3.2.11)
+      activesupport (= 3.2.11)
+      rack-ssl (~> 1.3.2)
+      rake (>= 0.8.7)
+      rdoc (~> 3.4)
+      thor (>= 0.14.6, < 2.0)
+    raindrops (0.10.0)
+    rake (10.0.4)
+    rb-fchange (0.0.5)
+      ffi
+    rb-fsevent (0.9.1)
+    rb-inotify (0.8.8)
+      ffi (>= 0.5.0)
+    rdiscount (1.6.8)
+    rdoc (3.12.2)
+      json (~> 1.4)
+    responders (0.9.2)
+      railties (~> 3.1)
+    rspec (2.11.0)
+      rspec-core (~> 2.11.0)
+      rspec-expectations (~> 2.11.0)
+      rspec-mocks (~> 2.11.0)
+    rspec-core (2.11.1)
+    rspec-expectations (2.11.2)
+      diff-lcs (~> 1.1.3)
+    rspec-mocks (2.11.2)
+    rspec-rails (2.11.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec (~> 2.11.0)
+    rubyzip (0.9.9)
+    russian (0.6.0)
+      i18n (>= 0.5.0)
+    sass (3.2.0)
+    sass-rails (3.2.5)
+      railties (~> 3.2.0)
+      sass (>= 3.1.10)
+      tilt (~> 1.3)
+    selenium-webdriver (2.25.0)
+      childprocess (>= 0.2.5)
+      libwebsocket (~> 0.1.3)
+      multi_json (~> 1.0)
+      rubyzip
+    spork (0.9.2)
+    sprockets (2.2.2)
+      hike (~> 1.2)
+      multi_json (~> 1.0)
+      rack (~> 1.0)
+      tilt (~> 1.1, != 1.3.0)
+    strip_attributes (1.1.0)
+      activemodel (~> 3.0)
+    thin (1.4.1)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
+    thor (0.18.1)
+    tilt (1.4.0)
+    tinymce-rails (3.5.6)
+      railties (>= 3.1.1)
+    tinymce-rails-langs (0.1)
+      tinymce-rails (>= 3.4.9)
+    treetop (1.4.12)
+      polyglot
+      polyglot (>= 0.3.1)
+    tzinfo (0.3.37)
+    uglifier (1.2.7)
+      execjs (>= 0.3.0)
+      multi_json (~> 1.3)
+    unicorn (4.3.1)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
+    warden (1.2.1)
+      rack (>= 1.0)
+    whenever (0.7.3)
+      activesupport (>= 2.3.4)
+      chronic (~> 0.6.3)
+    will_paginate (3.0.3)
+    xpath (0.1.4)
+      nokogiri (~> 1.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  activeadmin
+  acts_as_list
+  bluecloth
+  booter!
+  bootstrap-will_paginate
+  cancan (= 1.6.7)
+  capybara
+  cells
+  change_log!
+  chronic
+  coffee-rails (~> 3.2.1)
+  compass-rails
+  daemons
+  database_cleaner
+  default_value_for
+  delayed_job_active_record
+  devise
+  devise-encryptable
+  factory_girl
+  galetahub-simple_captcha!
+  guard-livereload
+  guard-rspec
+  guard-spork
+  haml-rails
+  hpricot
+  inherited_resources
+  jquery-rails
+  jquery-ui-rails
+  jquery_datepicker
+  launchy
+  liquid
+  markdownizer!
+  mina
+  nested_form
+  paper_trail
+  paperclip!
+  pg
+  railroady
+  rails (= 3.2.11)
+  rails-footnotes
+  rspec-rails
+  russian
+  sass-rails (~> 3.2.3)
+  seed_dump!
+  spork
+  strip_attributes
+  thin
+  tinymce-rails
+  tinymce-rails-langs
+  uglifier (>= 1.0.3)
+  unicorn (= 4.3.1)
+  whenever
+  will_paginate

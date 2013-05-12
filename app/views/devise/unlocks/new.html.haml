@@ -1,0 +1,8 @@
+.unlocks-new
+  %h3 Выслать инструкции для разблокировки
+  = nice_form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f|
+    = f.errors_for
+    = f.email_field :email
+
+    = f.actions do
+      = f.submit "Отправить"

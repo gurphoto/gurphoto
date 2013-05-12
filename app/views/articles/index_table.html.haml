@@ -1,0 +1,21 @@
+.articles
+  %h3.with-button
+    Акции
+    - if can? :create, Article
+      = link_to 'Добавить акцию', new_article_path, class: 'btn btn-mini btn-success'
+
+  = table do
+    %tr
+      %th Название
+      %th Дата
+      %th.actions(width="35")
+    - collection.each do |resource|
+      %tr
+        %td= resource.title
+        %td= l resource.created_at, format: :long
+        %td
+          - if can? :edit, resource
+            = icon_link_to 'pencil', '', edit_resource_path(resource)
+
+          - if can? :destroy, resource
+            = icon_link_to 'trash', '', resource, confirm: 'Вы уверены, что хотите удалить?', method: :delete

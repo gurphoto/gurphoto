@@ -1,0 +1,13 @@
+= nice_form_for resource do |f|
+  = f.wrapper :from do
+    = f.orig_date_select :from, {}, class: 'input-small'
+
+  = f.wrapper :to do
+    = f.orig_date_select :to, {}, class: 'input-small'
+
+  = f.text_area :description, class: 'input-xxlarge'
+
+  = f.actions do
+    = f.submit 'Сохранить'
+    = link_to 'Отмена', hotel_special_offers_path, class: 'btn'
+

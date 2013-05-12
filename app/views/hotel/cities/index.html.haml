@@ -1,0 +1,7 @@
+.hotel-cities
+  %h3.with-button
+    Города с гостиницами
+    = link_to 'Добавить новый', new_resource_path, class: 'btn btn-success btn-mini'
+
+  #content-table
+    = render partial: 'table'

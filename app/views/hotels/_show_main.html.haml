@@ -1,0 +1,127 @@
+.row-fluid
+  .span6
+    .well
+      %p
+        %b Адрес:
+        = ["г. #{resource.city}", "ул. #{resource.street}", resource.street_number].compact.join ', '
+
+      %p
+        %b Общее количество номеров:
+        = resource.all_rooms_count
+
+      %p
+        %b Возможность бронирования:
+        = resource.booking ? resource.booking.name : '-'
+
+      - if resource.booking_id == 2
+        %p
+          %b Причина остановки бронирования:
+          = resource.booking_description
+
+      - resource.filter_values.each do |value|
+        - next unless value.item
+        %p
+          %b= value.item.filter[:name] + ':'
+          = value.item.name
+
+      - %w(adjacent_territory).each do |name|
+        %p
+          %b= resource.class.human_attribute_name(name) + ':'
+          - if user_signed_in?
+            = resource[name] || '-'
+          - else
+            = content_for :hidden_field
+      - if can? :edit, resource
+        - %w(agency_commission).each do |name|
+          %p
+            %b= resource.class.human_attribute_name(name) + ':'
+            - if can? :edit, resource
+              = number_to_percentage resource[name] || 0, precision: 0
+
+      - %w(min_age_children documents checkout_time).each do |name|
+        %p
+          %b= resource.class.human_attribute_name(name) + ':'
+          = resource[name] || '-'
+
+    .well
+      - filter_item_ids = resource.filter_values.pluck(:item_id)
+      - resource.service_values.sort{ |a, b| a.service.position <=> b.service.position }.each do |value|
+        - next if value.service.filter_item_id and !filter_item_ids.include? value.service.filter_item_id
+        - next if value.value.nil? or value.value.empty?
+        %p
+          %b= value.service.name + ':'
+          - if current_user != nil
+            - if (!value.service.only_signed || (user_signed_in? && value.service.only_signed)) || (!value.service.only_moderator || (current_user.moderator? && value.service.only_moderator)) || current_user.super_admin?
+              - if value.service.multiline
+                = n2br value.value
+              - else
+                = value.value
+            - else
+              = content_for :hidden1_field
+          -else
+            = content_for :hidden_field
+  .span6
+    .well
+      - %w(phone site).each do |name|
+        %p
+          %b= resource.class.human_attribute_name(name) + ':'
+          - if user_signed_in? and !current_user.camper?
+            = resource[name] || '-'
+          - else
+            = content_for :hidden1_field
+
+      %p
+        %b Описание проезда:
+        - if user_signed_in?
+          = resource.route_description
+          - if resource.way.file?
+            %br
+            = link_to 'Посмотреть карту', resource.way.url, rel: 'gallery'
+        - else
+          = content_for :hidden_field
+
+    - if user_signed_in? && current_user.admin?
+      .well
+        - %w(email iin kpp ogrn legal_address post_address).each do |name|
+          %p
+            %b= resource.class.human_attribute_name(name) + ':'
+            = resource[name] || '-'
+
+
+    - resource.bank_attributes.each do |a|
+      - if user_signed_in? && current_user.camper?
+        .well
+          - %w(name bik current_account corr_account).each do |name|
+            %p
+              %b= a.class.human_attribute_name(name) + ':'
+              = a[name] || '-'
+
+    - if resource.rooms.count > 0
+      .well.rooms-list
+        %h4 Номера
+        %br
+        - resource.rooms.each do |room|
+          %p= link_to room.name, '#', onclick: "javascript:openRoom(#{room.id});return false"
+
+- if resource.map_latitude and resource.map_longitude
+  .row-fluid
+    .span12
+      %script(src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU")
+      :javascript
+        ymaps.ready(function(){
+          var map = new ymaps.Map('YMapsID', { zoom: 15, center: [jQuery('#YMapsID').data('latitude'), jQuery('#YMapsID').data('longitude')] });
+          var placemark = new ymaps.Placemark(map.getCenter());
+
+          map.zoomRange.get(map.getCenter()).then(function(zoomRange, err){
+            if(!err)
+              map.setZoom(zoomRange[1]);
+          });
+
+          map.geoObjects.add(placemark);
+          map.controls
+            .add('typeSelector')
+            .add('smallZoomControl', { right: 5, top: 75 })
+            .add('mapTools');
+        });
+
+      #YMapsID{ style: "width:100%; height: 300px", data: { longitude: resource.map_longitude, latitude: resource.map_latitude } }

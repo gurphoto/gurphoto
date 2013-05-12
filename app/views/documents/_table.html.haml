@@ -1,0 +1,23 @@
+%table
+  - collection.each do |resource|
+    - filename = resource.attach.url(resource.attach.default_style, false)
+    = content_tag_for :tr, resource do
+      %td.type(width="32")
+        %span.icon.big{ class: "icon#{File.extname(filename).gsub('.', '-')}" }
+      %td.name
+        %h6= link_to resource.name, filename
+        %p
+          = resource.description
+
+      %td.actions(width="70")
+        - if can? :edit, resource
+          = icon_link_to 'arrow-up', '', sort_document_path(resource, direction: :up), remote: true, data: { replace: '#content-table' }
+          = icon_link_to 'arrow-down', '', sort_document_path(resource, direction: :down), remote: true, data: { replace: '#content-table' }
+          = icon_link_to 'pencil', '', edit_resource_path(resource)
+
+        - if can? :destroy, resource
+          = icon_link_to 'trash', '', resource, confirm: 'Вы уверены, что хотите удалить этот документ?', method: :delete
+
+      %td(width="35")
+        = link_to filename do
+          %i.icon.big.icon-download

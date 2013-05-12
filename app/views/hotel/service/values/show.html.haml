@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Service:
+  = @hotel_service_value.service_id
+%p
+  %b Hotel:
+  = @hotel_service_value.hotel_id
+%p
+  %b Value:
+  = @hotel_service_value.value
+
+= link_to 'Edit', edit_hotel_service_value_path(@hotel_service_value)
+\|
+= link_to 'Back', hotel_service_values_path

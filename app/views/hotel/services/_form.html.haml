@@ -1,0 +1,16 @@
+.services-form
+  = nice_form_for resource do |f|
+    = f.errors_for
+
+    = f.text_field :name
+    = f.text_field :default_value
+    = f.select :filter_item_id, Hotel::Filter::Item.all.map { |item| ["#{item.filter.name} - #{item.name}", item.id] }, include_blank: 'Любое'
+    = f.check_box :default
+    = f.check_box :only_moderator
+    = f.check_box :only_signed
+    = f.check_box :multiline
+    = f.check_box :include_to_print
+
+    = f.actions do
+      = f.submit 'Сохранить', class: 'btn btn-primary'
+      = link_to 'Отмена', collection_path, class: 'btn'

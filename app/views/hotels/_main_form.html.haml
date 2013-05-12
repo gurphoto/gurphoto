@@ -1,0 +1,163 @@
+:javascript
+  jQuery(function(j){
+    j('#hotel_booking_id').change(function(){
+      j('div.booking-description').toggle(j(this).val() == 2);
+    });
+  });
+
+.row-fluid
+  .span6
+    = f.text_field :name
+    = f.check_box :published
+
+    = f.wrapper :booking_id do
+      = f.collection_select :booking_id, Hotel::Booking.all, :id, :name
+
+    = f.text_field :all_rooms_count
+
+    .booking-description(style="display:#{resource.booking_id == 2 ? 'block' : 'none'}")
+      = f.text_area :booking_description, rows: 2
+
+    = f.text_area :description, rows: 4, class: 'input-xlarge'
+    = f.text_area :adjacent_territory, rows: 4, class: 'input-xlarge'
+
+    = f.text_field :min_age_children, autocomplete: 'off'
+
+  .span6
+    = f.wrapper :city_id do
+      = f.collection_select :city_id, Hotel::City.all, :id, :name
+
+    = f.text_field :street, autocomplete: 'off', data: { provide: 'typeahead', source: Hotel.pluck(:street).uniq.to_json }
+    = f.text_field :street_number, autocomplete: 'off'
+
+    :javascript
+      jQuery(function(j){
+        function update(){
+          j('input[name="full_address"]').val(j('select[name="hotel[city_id]"] option:selected').text() + ' ' + j('input[name="hotel[street]"]').val() + ', ' + j('input[name="hotel[street_number]"]').val());
+          j('.search-table a').click();
+        }
+
+        j('select[name="hotel[city_id]"], input[name="hotel[street_number]"], input[name="hotel[street]"]').change(update);
+        update();
+      });
+
+    - resource.all_filter_values.each do |value|
+      = f.fields_for :filter_values, value do |ff|
+        .control-group
+          = ff.hidden_field :filter_id
+          = ff.label :item_id, class: 'control-label' do
+            = value.filter[:name]
+          .controls
+            = ff.collection_select :item_id, value.filter.items, :id, :name
+
+    - resource.checkout_time ||= '12:00'
+    = f.select :checkout_time, resource.checkout_time_list
+
+    = f.text_area :documents, rows: 3
+
+    = f.text_field :agency_commission, autocomplete: 'off'
+
+.row-fluid
+  .span6
+    = f.text_field :phone
+    = f.text_field :email
+    = f.text_field :site
+  .span6
+    = f.text_area :route_description, rows: 3
+    = f.file_field :way
+
+.row-fluid
+  .span12
+    -#
+      %h4
+        Положение на Яндекс.Карте
+        %small Сделайте клик по карте, чтобы установить положение
+
+    %script(src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU")
+
+    = f.hidden_field :map_latitude, id: 'map_latitude-field'
+    = f.hidden_field :map_longitude, id: 'map_longitude-field'
+
+    %table.search-table
+      %tr
+        %td.field-col
+          = text_field_tag :full_address, '', style: 'width:100%'
+        %td.button-col
+          = link_to 'Найти на карте', '#', class: 'btn btn-success'
+
+    :javascript
+      jQuery(function(j){
+        ymaps.ready(function(){
+          var latitudeField = j('#map_latitude-field');
+          var longitudeField = j('#map_longitude-field');
+
+          var searchField = j('.search-table input:first');
+          var searchButton = j('.search-table a');
+          var searchResults = j('.search-table .results');
+          var removeLabel = j('#remove-label');
+
+          var map = new ymaps.Map('YMapsID', {
+            center: [66.42, 94.26],
+            zoom: 3
+          });
+
+          var placesCollection = new ymaps.GeoObjectCollection();
+
+          function setLabel(coords){
+            placesCollection.removeAll();
+            placesCollection.add(new ymaps.Placemark(coords));
+            map.setCenter(coords);
+
+            map.zoomRange.get(coords).then(function(zoomRange, err){
+              if(!err) map.setZoom(zoomRange[1]);
+            });
+
+            map.geoObjects.add(placesCollection);
+
+            latitudeField.val(coords[0]);
+            longitudeField.val(coords[1]);
+          }
+
+          if(longitudeField.val() && latitudeField.val()){
+            var coords = [parseFloat(latitudeField.val()), parseFloat(longitudeField.val())];
+            setLabel(coords);
+          }
+
+          map.controls
+            .add('typeSelector')
+            .add('smallZoomControl', { right: 5, top: 75 })
+            .add('mapTools');
+
+          map.events.add('click', function(e){
+            setLabel(e.get('coordPosition'));
+          });
+
+          searchButton.click(function(){
+            ymaps.geocode(searchField.val(), { results: 1 }).then(function (res){
+              if(res.geoObjects.getLength() > 0){
+                var place = res.geoObjects.get(0);
+                var coordinates = place.geometry.getBounds()[0];
+
+                setLabel(coordinates);
+              } else {
+                alert('Заданный адрес не найден');
+              }
+            })
+
+            return false;
+          });
+
+          removeLabel.click(function(){
+            placesCollection.removeAll();
+            latitudeField.val(0);
+            longitudeField.val(0);
+
+            return false;
+          });
+        });
+      });
+
+    .map#YMapsID(style="width:100%; height: 300px")
+    .pull-right
+      %br
+      = link_to 'Удалить метку', '#', class: 'btn btn-danger btn-mini', id: 'remove-label'

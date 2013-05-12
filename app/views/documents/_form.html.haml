@@ -1,0 +1,9 @@
+= nice_form_for @document, html: { class: 'form-horizontal' } do |f|
+  = f.errors_for
+  = f.text_field :name, class: 'input-xlarge'
+  = f.text_area :description, class: 'input-xxlarge'
+  = f.file_field :attach
+
+  = f.actions do
+    = f.submit 'Сохранить'
+    = link_to 'Назад', documents_path, class: :btn

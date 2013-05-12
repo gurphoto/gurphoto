@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b User_id:
+  = @users_hotelier_hotel.User_id
+%p
+  %b Bik:
+  = @users_hotelier_hotel.Hotel_id
+
+= link_to 'Edit', edit_users_hotelier_hotel_path(@users_hotelier_hotel)
+\|
+= link_to 'Back', users_hotelier_hotel_path

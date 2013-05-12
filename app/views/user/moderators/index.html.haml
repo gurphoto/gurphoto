@@ -1,0 +1,34 @@
+.user-admis
+  -$no_tourist = true
+
+  %h2.with-button
+    Все администраторы
+    = link_to 'Новый адмиминистратор', new_resource_path, class: 'btn btn-mini btn-success'
+
+  %table.table.table-striped
+    %tr
+      %th Емаил
+      %th(width="150") Имя
+      %th(width="150") Запросы
+      %th(width="150") Закрепленные города
+      %th.actions(width="18")
+      %th.actions(width="35")
+
+    - collection.each do |resource|
+      %tr
+        %td= resource.email
+        %td= resource.profile.name
+        %td
+          %div
+            Взято:
+            = resource.tickets.opened.count
+          %div
+            Всего:
+            = resource.tickets.count
+
+        %td= resource.cities.pluck('name').join(', ')
+        %td
+          = icon_link_to 'zoom-in', '', tickets_path(moderator_id: resource.id)
+        %td.actions
+          = icon_link_to :pencil, '', edit_resource_path(resource)
+          = icon_link_to :trash, '', resource, :confirm => 'Вы уверены, что хотите удалить?', :method => :delete

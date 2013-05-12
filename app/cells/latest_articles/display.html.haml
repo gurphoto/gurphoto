@@ -1,0 +1,10 @@
+.articles-cell
+  .items
+    - @articles.each do |row|
+      .item
+        .border
+          .date= I18n.l(row.created_at, :format => :short)
+          .text
+            %h2= row.title
+            %p= row.description
+            = link_to 'Читать далее...', row

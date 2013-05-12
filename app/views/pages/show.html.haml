@@ -1,0 +1,8 @@
+.pages
+  %h1.with-button
+    = resource.title
+    - if can? :update, resource
+      = link_to 'Редактировать', edit_resource_path(resource), class: 'btn btn-mini btn-success'
+
+  .content
+    = raw resource.content

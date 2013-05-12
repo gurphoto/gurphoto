@@ -1,0 +1,9 @@
+.reviews-cell
+  %h2 Отзывы
+  .items
+    - @collection.each do |resource|
+      .item
+        - if resource.hotel
+          %h4= link_to resource.hotel.name, resource.hotel
+        %h6= resource.name
+        %p= resource.text.split(' ')[0..20].join(' ') + '...'

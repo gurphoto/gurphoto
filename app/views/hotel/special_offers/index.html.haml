@@ -1,0 +1,15 @@
+%h3.with-button
+  = "Специальные предложения для гостиницы \"#{parent.name}\""
+  - if can? :create, Hotel::SpecialOffer
+    = link_to 'Добавить', new_hotel_special_offer_path, class: 'btn btn-mini btn-success'
+  = link_to 'Назад к гостнице', hotel_path(parent), class: 'btn btn-mini btn-inverse'
+
+%table.table.table-stripped
+  %tr
+    %th Время действия
+    %th Описание
+
+  - collection.each do |resource|
+    %tr
+      %td= l(resource.from) + ' - ' + l(resource.to)
+      %td= resource.description[0..90] + '...'

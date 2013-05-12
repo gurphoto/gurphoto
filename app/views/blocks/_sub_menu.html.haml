@@ -1,0 +1,54 @@
+:javascript
+  jQuery(function(j){
+    j('div.submenu li a').each(function(){
+      var link = j(this);
+      var href = link.attr('href');
+
+      j(this).parent().toggleClass('active', location.pathname.indexOf(href) >= 0);
+    });
+  });
+
+.submenu
+  .row-fluid
+
+
+    - if current_user.admin?
+      .span3
+        .well
+          = nav do |i|
+            = i.header 'Каталог'
+            = i.icon_link :home, 'Добавить объект', new_hotel_path
+            = i.icon_link :comment, "Отзывы (#{Hotel::Review.count_not_publiched})",  hotel_reviews_path
+
+
+      .span3
+        .well
+          = nav do |i|
+            = i.header 'Добавить...'
+            = i.icon_link 'info-sign', 'Акцию', new_article_path
+            - if current_user.super_admin?
+              = i.icon_link :file, 'Документ', new_document_path
+              = i.icon_link :plus, 'Импорт CSV', hotel_import_index_path
+
+    - if current_user.super_admin?
+      .span3
+        .well
+          = nav do |i|
+            = i.header 'Управление'
+            = i.icon_link :retweet, 'Переписка', tickets_path
+            = i.icon_link :tags, 'Пользователи', users_path
+            = i.icon_link :tags, 'Агентства', user_agencies_path
+            = i.icon_link :user, 'Администраторы', user_moderators_path
+            = i.icon_link :user, 'Хотельеры', user_hoteliers_path
+            = i.icon_link :user, 'Туристы', user_campers_path
+            = i.icon_link :envelope, 'Шаблоны сообщений', email_templates_path
+
+      .span3
+        .well
+          = nav do |i|
+            = i.header 'Вспомогательные поля'
+            = i.icon_link :flag, 'Города', hotel_cities_path
+            = i.icon_link :magnet, 'Фильтры', hotel_filters_path
+            = i.icon_link :cog, 'Сервисы', hotel_services_path
+            = i.icon_link :cog, 'Доп. поля номеров', hotel_room_fields_path
+            = i.icon_link :cog, 'Доп. списки номеров', hotel_room_lists_path

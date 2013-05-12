@@ -1,0 +1,54 @@
+.special-offers
+  - if user_signed_in?
+    .items
+      - if resource.special_offers.count > 0
+        .accordion#special-offers-accordion
+          .accordion-group
+            .accordion-heading
+              %a(class="accordion-toggle" data-toggle="collapse" data-parent="#special-offers-accordion" href="#future-special-offers")
+                = icon 'eye-open'
+                Актуальные
+            .accordion-body.collapse#future-special-offers.in
+              .accordion-inner
+                - resource.special_offers.active.each do |i|
+                  .offer-item
+                    .row-fluid
+                      .pull-left
+                        %p
+                          %b= i.title
+                      .pull-right
+                        %p.small
+                          с
+                          %b= l i.from, format: :long
+                          до
+                          %b= l i.to, format: :long
+                    %p= i.description
+
+
+          .accordion-group
+            .accordion-heading
+              %a(class="accordion-toggle" data-toggle="collapse" data-parent="#special-offers-accordion" href="#lost-special-offers")
+                = icon 'eye-close'
+                Пропущенные
+            .accordion-body.collapse#lost-special-offers
+              .accordion-inner
+                - resource.special_offers.each do |i|
+                  - next unless i.to < Date.today
+                  .offer-item
+                    .row-fluid
+                      .pull-left
+                        %p
+                          %b= i.title
+                      .pull-right
+                        %p.small
+                          с
+                          %b= l i.from, format: :long
+                          до
+                          %b= l i.to, format: :long
+                    %p= i.description
+
+      - else
+        %p На текущий момент у этой гостиницы нет специальных предложений
+
+  - else
+    .alert.alert-info Данная информация доступна только зарегистрированным пользователям – зарегистрируйтесь на сайте.

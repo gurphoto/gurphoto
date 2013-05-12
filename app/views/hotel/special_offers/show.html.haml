@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Hotel:
+  = @hotel_special_offer.hotel_id
+%p
+  %b From:
+  = @hotel_special_offer.from
+%p
+  %b To:
+  = @hotel_special_offer.to
+%p
+  %b Description:
+  = @hotel_special_offer.description
+
+= link_to 'Edit', edit_hotel_special_offer_path(@hotel_special_offer)
+\|
+= link_to 'Back', hotel_special_offers_path

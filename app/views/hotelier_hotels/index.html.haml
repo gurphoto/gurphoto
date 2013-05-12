@@ -1,0 +1,21 @@
+%h1 Listing hotelier_hotel
+
+%table
+  %tr
+    %th User_id
+    %th Hotel_id
+    %th
+    %th
+    %th
+
+  - @hotelier_hotel.each do |hotelier_hotel|
+    %tr
+      %td= hotelier_hotel.user_id
+      %td= hotelier_hotel.hotel_id
+      %td= link_to 'Show', hotelier_hotel
+      %td= link_to 'Edit', edit_hotelier_hotel_path(hotelier_hotel)
+      %td= link_to 'Destroy', hotelier_hotel, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Hotelier_hotel', new_hotelier_hotel_path

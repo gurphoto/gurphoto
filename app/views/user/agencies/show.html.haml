@@ -1,0 +1,38 @@
+%p#notice= notice
+%h3
+  Агентство
+  = "##{resource.id}"
+
+%p
+  %strong Емайл:
+  = resource.email
+
+.row-fluid
+  .span6
+    %p
+      %b Полное имя:
+      = resource.profile.name
+    %p
+      %b Телефоны:
+      = resource.profile.phones
+    %p
+      %b Skype:
+      = resource.profile.skype
+    %p
+      %b ICQ:
+      = resource.profile.icq
+  .span6
+    %p
+      %b Название комании:
+      = resource.profile.company_name
+    %p
+      %b Адресс:
+      = resource.profile.address
+    %p
+      %b Номер договора:
+      = resource.profile.agreement
+
+
+= link_to 'Редактировать', edit_user_agency_path(@user_agency)
+\|
+= link_to 'Все агенства', user_agencies_path

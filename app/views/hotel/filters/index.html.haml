@@ -1,0 +1,8 @@
+.filters
+  %h3.with-button
+    Все фильтры
+    - if can? :create, Hotel::Filter
+      = link_to 'Добавить', new_resource_path, class: 'btn btn-mini btn-success'
+
+  #content-table
+    = render partial: 'table'

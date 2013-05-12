@@ -1,0 +1,18 @@
+%h3 Импорт данных
+
+= form_for :import, html: { class: 'form-horizontal', multipart: true } do |f|
+  .control-group
+    %label.control-label Файл
+    .controls
+      = f.file_field :csv
+      %p.help-block Файл для импорта должен быть в формате CSV и содержать колонки в таком порядке:<br />Наименование, Тип, Город, Улица, Строение, Телефоны.
+      %br
+  .form-actions
+    = f.submit 'Отправить'
+
+- if @import_count
+  %p= "Успешно обработано записей: #{@import_count} из #{@all_import_count}"
+
+  - @errors.uniq.each do |m|
+    %p= m
+

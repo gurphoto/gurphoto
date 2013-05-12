@@ -1,0 +1,16 @@
+= nice_form_for resource do |f|
+  = f.errors_for
+
+  = f.text_field :name
+  = f.text_field :email, hint: 'Спасибо за Ваш отзыв, возможно, по электронной почте администратор  уточнит некоторые детали перед публикацией Вашего отзыва.'
+
+  = f.text_area :text, class: 'input-xxlarge', hint: 'Максимальная длинна текста - 600 символов'
+  = f.select :character_id, [['Нейтральный', 2], ['Положительный', 3], ['Отрицательный', 1]]
+  = f.hidden_field :hotel_id
+
+  - unless user_signed_in?
+    = f.simple_captcha
+
+  = f.actions do
+    = f.submit 'Сохранить'
+    = link_to 'Отмена', collection_path, class: 'btn'

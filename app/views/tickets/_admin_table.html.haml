@@ -1,0 +1,50 @@
+= table do
+  %tr
+    %th.center #
+    %th= sortable 'created_at', 'Дата создания'
+    %th= sortable 'last_message_created_at', 'Последнее сообщение'
+    %th Фирма
+    %th Представитель
+    %th Город
+    %th Объект
+    %th Тип номера
+    %th Сообщения
+    - if current_user.moderator?
+      %th(width="40")
+    - if current_user.super_admin?
+      %th(width="80")
+    %th(width="20")
+
+  - @collection.each do |resource|
+    %tr
+      %td.center= resource.id
+      %td= Russian.l(resource.created_at, format: :long)
+      %td= Russian.l(resource.last_message_created_at, format: :short) if resource.last_message_created_at
+      %td
+        = resource.agency.profile.company_name
+      %td
+        = link_to resource.agency.profile.name, resource.agency.profile
+      %td
+        - resource.rooms.map { |i| i.hotel.city }.uniq.each do |city|
+          = city
+          %br
+      %td
+        - resource.rooms.map { |i| link_to i.hotel.name, i.hotel }.uniq.each do |link|
+          = link
+          %br
+      %td
+        - resource.rooms.each do |room|
+          = link_to room.name, "#{hotel_path(room.hotel)}#room-#{room.id}"
+          %br
+      %td
+        = resource.admin_new_messages_count
+      - if current_user.moderator?
+        %td
+          - if resource.open?
+            = link_to 'Взять', pull_ticket_path(resource), class: 'btn btn-mini btn-inverse'
+      - if current_user.super_admin?
+        %td
+          - if resource.admin
+            = resource.admin.email
+      %td
+        = icon_link_to 'zoom-in', '', resource_path(resource)

@@ -1,0 +1,29 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+#
+
+defaults: &defaults
+  adapter: postgresql
+  encoding: utf8
+  pool: 5
+  username: biggur_user
+  #password: BJdn8CJ9T3dHjUaZ
+  password: BUdn8PJ9T3dHjRaZ
+  port: 5432
+  schema_search_path: public
+  template: template0
+
+development:
+  <<: *defaults
+  database: gur_photo_development
+
+test:
+  <<: *defaults
+  database: gur_photo_test
+
+production:
+  <<: *defaults
+  database: gur_photo_production

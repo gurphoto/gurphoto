@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Search example</title>
+
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet" />
+
+    <script src="http://api-maps.yandex.ru/2.0/?load=package.full&mode=debug&lang=ru-RU" type="text/javascript"></script>
+    <script>
+      window.onload = function(){
+        var myMap = new ymaps.Map("map", {
+          center: [44.731808, 37.782054],
+          zoom: 14,
+          type: "yandex#map"
+        }
+        );
+
+        myMap.geoObjects.add(new ymaps.Placemark([44.732955, 37.776024]));
+        myMap.geoObjects.add(new ymaps.Placemark([44.728978, 37.774887]));
+        myMap.geoObjects.add(new ymaps.Placemark([44.727938, 37.769394]));
+        myMap.geoObjects.add(new ymaps.Placemark([44.734638, 37.792504]));
+        myMap.geoObjects.add(new ymaps.Placemark([44.734026, 37.780488]));
+        myMap.geoObjects.add(new ymaps.Placemark([44.727938, 37.769394]));
+        myMap.geoObjects.add(new ymaps.Placemark([44.737146, 37.787118]));
+
+        myGeoObject = new ymaps.GeoObject({
+          // Геометрия.
+          geometry: {
+            // Тип геометрии - линия.
+            type: 'LineString',
+            // Координаты ее точек.
+            coordinates: [
+            [44.726499, 37.772388],
+            [44.731808, 37.782054],
+            [44.736969, 37.792178]
+            ]
+          }
+          }, {
+          strokeWidth: 5 // ширина линии
+        });
+
+        myMap.geoObjects.add(myGeoObject);
+      };
+    </script>
+
+    <style>
+      body { padding-top: 100px }
+      #map { width: 700px; height: 300px }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+           <h3>Пример результатов поиска по улицу "Портовая"</h5>
+          <div id="map">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

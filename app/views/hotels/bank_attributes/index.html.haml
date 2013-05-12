@@ -1,0 +1,25 @@
+%h1 Listing hotels_bank_attributes
+
+%table
+  %tr
+    %th Name
+    %th Bik
+    %th Corr account
+    %th Current account
+    %th
+    %th
+    %th
+
+  - @hotels_bank_attributes.each do |hotels_bank_attribute|
+    %tr
+      %td= hotels_bank_attribute.name
+      %td= hotels_bank_attribute.bik
+      %td= hotels_bank_attribute.corr_account
+      %td= hotels_bank_attribute.current_account
+      %td= link_to 'Show', hotels_bank_attribute
+      %td= link_to 'Edit', edit_hotels_bank_attribute_path(hotels_bank_attribute)
+      %td= link_to 'Destroy', hotels_bank_attribute, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Bank attribute', new_hotels_bank_attribute_path

@@ -1,0 +1,10 @@
+
+one:
+  hotel_id: 1
+  type_id: 1
+  name: Пентхауз
+
+two:
+  hotel_id: 1
+  type_id: 1
+  name: Для молодоженов

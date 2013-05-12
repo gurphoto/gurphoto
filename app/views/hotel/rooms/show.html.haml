@@ -1,0 +1,78 @@
+!!!
+
+:css
+  html, body, div, span, applet, object, iframe,
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, img, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var,
+  b, u, i, center,
+  dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend,
+  table, caption, tbody, tfoot, thead, tr, th, td { margin:margin 0; padding: 0; border: 0; font-size: 100%; font: inherit; verticall-align: baseline; }
+
+  body { font: 16px }
+  h1 { font-size: 22px; font-weight: 800 }
+  h3 { text-align: center; margin: 10px 0; text-decoration: underline; font-style: italic; font-size: 18px }
+  p { font-style: italic; color: rgb(166, 166, 166); margin: 0; }
+  table { width: 100%; border-collapse: collapse; border-spacing: 0; margin: 20px 0 }
+  td { padding: 3px 7px; border: 1px solid #777 }
+
+  .name { background-color: rgb(242, 242, 242); width: 100px; white-space: nowrap }
+
+:javascript
+  window.onload = window.print;
+
+%h1 Паспорт туристической услуги к заявке №_______________
+%h1 от "___"__________ 20___г.
+%h3 Общая часть
+
+%table
+  %tr
+    %td.name Название гостиницы
+    %td= resource.hotel.name
+  %tr
+    %td.name Адрес
+    %td= resource.hotel.address
+  %tr
+    %td.name Проезд
+    %td= resource.hotel.route_description
+  %tr
+    %td.name Расчетный час
+    %td= resource.hotel.checkout_time
+  %tr
+    %td(colspan="2")
+      %p Документы, необходимые для заселения в гостиницу
+      = resource.hotel.documents
+
+%h3 Характеристики гостиничного номера
+
+%table
+  %tr
+    %td.name Тип номера
+    %td= resource.type.name
+    %td.name Количество мест
+    %td= resource.places_count
+  %tr
+    %td.name Тип номера по гостиничной классификации
+    %td= resource.name
+    %td.name Количество доп. мест
+    %td= resource.additional_places_count
+
+%table
+  %tr
+    %td.name Цена в летний период
+    %td= resource.price_summer
+  %tr
+    %td.name Цена в высокий период
+    %td= resource.price_high_season
+  %tr
+    %td.name Цена в зимний период
+    %td= resource.price_winter
+
+%table
+  - resource.field_values.each do |value|
+    - next unless value.field.include_to_print
+    %tr
+      %td.name= value.field.name
+      %td= value.value

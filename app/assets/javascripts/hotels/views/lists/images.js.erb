@@ -1,0 +1,108 @@
+Application.closure.apply(function(a, u, j){
+  a.define('View.List', 'Images', {
+    initialize: function(){
+      this.super(arguments);
+
+      this.on('render', function(){
+        u.delay(function(view){
+          view.initializeSwfUpload();
+        }, 500, this);
+      }, this);
+    },
+
+    initializeSwfUpload: function(){
+      var postParams = {};
+      var handlersNamespace = this.uploadHandlers;
+      var handlersNames = [
+        'file_dialog_start_handler',
+        'file_queued_handler',
+        'file_queue_error_handler',
+        'file_dialog_complete_handler',
+        'upload_start_handler',
+        'upload_progress_handler',
+        'upload_error_handler',
+        'upload_success_handler',
+        'upload_complete_handler'
+      ];
+
+      postParams[window.sessionKeyName] = window.sessionKeyValue;
+      postParams[window.protectionToken] = window.protectionValue;
+
+      var options = {
+        upload_url: '/hotel/images/swfupload',
+        flash_url : '<%= asset_path 'swfupload/swfupload.swf' %>',
+
+        file_post_name: 'image',
+        file_size_limit : '102400',	// 100MB
+        file_types : '*.jpg;*.png;*.gif;*.jpeg',
+        file_types_description : 'Фотографии',
+        file_upload_limit : '10',
+
+        post_params: postParams,
+
+        button_placeholder: this.$el.find('#spanButtonPlaceholder')[0],
+        button_cursor: SWFUpload.CURSOR.HAND,
+        button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+        button_width: 61,
+        button_height: 22,
+
+        debug: false
+      };
+
+      u.each(handlersNames, function(value){
+        options[value] = u.bind(handlersNamespace[value.camelize(true).replace('Handler', '')], this);
+      }, this);
+
+      this.swfupload = new SWFUpload(options);
+    },
+
+    uploadHandlers: {
+      fileDialogStart: function(){
+        console.log('dialog start');
+      },
+
+      fileQueued: function(file){
+      },
+
+      fileQueueError: function(file, errorCode, message){
+        console.log(file, errorCode, message);
+      },
+
+      fileDialogComplete: function(numFilesSelected, numFilesQueued){
+        this.swfupload.startUpload();
+      },
+
+      uploadStart: function(file){
+        this.collection.add([file]);
+      },
+
+      uploadProgress: function(file, bytesLoaded, bytesTotal){
+        var percent = Math.ceil((bytesLoaded / bytesTotal) * 100);
+        this.collection.findById(file.id).set('progress', percent);
+      },
+
+      uploadError: function(file, errorCode, message){
+        var model = this.collection.findById(file.id);
+
+        if(model)
+          model.destroy();
+      },
+
+      uploadSuccess: function(file, serverData){
+        var data = j.parseJSON(serverData);
+        var model = this.collection.findById(file.id);
+
+        if(!model)
+          return;
+
+        if(data.success)
+          model.set('thumb', data.path);
+        else
+          model.destroy();
+      },
+
+      uploadComplete: function(file){
+      }
+    }
+  });
+});

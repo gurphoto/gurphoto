@@ -1,0 +1,30 @@
+.row-fluid
+  .span6
+    - f.object.is_partner = false
+    - f.object.is_hotelier = true
+    = f.text_field :email
+    = f.text_field :password
+    = f.check_box :is_partner
+
+  = f.fields_for :profile do |ff|
+    .row-fluid
+      .span6
+        - $is_hotelier_form = true
+        - $hotelier_save = ff.object.user_id
+        = ff.check_box :notified
+        = ff.text_field :name
+        = ff.text_field :phones
+        = ff.text_field :skype
+        = ff.text_field :icq
+      .span6
+        = ff.text_field :company_name
+        = ff.text_field :address
+        = ff.text_field :city, autocomplete: 'off', data: { provide: 'typeahead', source: Profile.pluck(:name).to_json }
+        = ff.text_field :agreement
+        = ff.wrapper :validity do
+          = ff.orig_date_select :validity, {}, class: 'input-small'
+        = ff.wrapper :logo do
+          = ff.orig_file_field :logo
+          - if ff.object.logo.exists?
+            = image_tag ff.object.logo.url(:thumb)
+          %p.help-block Оптимальный размер: 200x150px

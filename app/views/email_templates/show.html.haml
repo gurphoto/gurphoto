@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @email_template.name
+%p
+  %b Subject:
+  = @email_template.subject
+%p
+  %b Body:
+  = @email_template.body
+
+= link_to 'Edit', edit_email_template_path(@email_template)
+\|
+= link_to 'Back', email_templates_path

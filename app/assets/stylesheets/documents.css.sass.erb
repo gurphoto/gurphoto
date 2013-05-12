@@ -1,0 +1,37 @@
+.documents
+  table
+    width: 100%
+
+    a
+      color: #000
+
+  td
+    line-height: 50px
+    padding: 3px 7px
+    background: url(<%= asset_path("line.png") %>) repeat-x 0 100%
+
+  .icon.big
+    width: 32px
+    height: 32px
+
+  table
+    .icon
+      vertical-align: -10px
+      a
+        text-decoration: none
+
+  .icon-download
+    background: url(<%= asset_path("download.png") %>) no-repeat 50% 50%
+    width: 40px
+
+  .icon-png, .icon-jpg, .icon-jpeg
+    background: url(<%= asset_path("icons/image.png") %>) no-repeat 50% 50%
+
+  .icon-doc, .icon-docx
+    background: url(<%= asset_path("icons/document.png") %>) no-repeat 50% 50%
+
+  .icon-xls, .icon-xlsx
+    background: url(<%= asset_path("icons/excel.png") %>) no-repeat 50% 50%
+
+  .icon-pdf
+    background: url(<%= asset_path("icons/pdf.png") %>) no-repeat 50% 50%

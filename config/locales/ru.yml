@@ -1,0 +1,339 @@
+ru:
+  user/moderator: Модератор
+  user/agency: Турагенство
+  user/hotelier: Хотельер
+  user/camper: Турист
+  user/super: Главный администратор
+
+  simple_captcha:
+    message:
+      default: не соответствует картинке
+
+  add_review: Ваш отзыв добавлен и будет опубликован после проверки нашими администраторами.
+  change_settings: Параметры для входа успешно изменены и встулят в силу после следующей авторизации.
+
+  will_paginate:
+    page_gap: ...
+
+  you_are_not_authorized_to_access_this_page: Для продолжения работы Вам нужно осуществить ВХОД на сайт!
+
+  role:
+    super_admin: Главный администратор
+    admin: Администратор
+    agency: Турагенство
+    hotelier: Хотельер
+    camper: Турист
+
+  email_templates_types:
+    create_ticket: Создание тикета
+    create_message: Новое сообщения
+    close_ticket: Закрытие тикета
+    create_moderator: Создание модератора
+    create_agency: Создание агентства
+    create_hotelier: Создание хотельера
+    create_camper: Создание туриста
+    delete_moderator: Удаление модератора
+    delete_agency: Удаление агентства
+    delete_hotelier: Удаление хотельера
+    delete_camper: Удаление туриста
+    contact: Запрос из контактов
+
+  errors:
+    messages:
+      not_saved: ''
+
+  users:
+    sign_in: Войти
+    forgot_password?: Забыл(а) пароль?
+    unlock_instructions?: Не получили инструкции для разблокировки?
+
+  devise:
+    sessions:
+      user:
+        signed_in: Вы успешно вошли в свой кабинет.
+        signed_out: Вы успешно вышли из своего кабинета.
+
+    registrations:
+      user:
+        signed_up: Вы успешно прошли регистрацию
+
+    passwords:
+      user:
+        send_instructions: На ваш электронный адрес отправлены инструкции по восстановлению пароля
+        updated: Ваш пароль успешно обновлен
+
+    unlocks:
+      user:
+        unlocked: Аккаунт успешно разблокирован.
+
+    failure:
+      already_authenticated: Вы уже авторизованы
+      
+      user:
+        locked: Аккаунт заблокирован. Проверьте почту, чтобы получить инструкции по разблокировке.
+        invalid: Не удается войти. Пожалуйста, проверьте правильность написания логина и пароля.
+        timeout: Время авторизации истекло. Если вы хотите продолжить использование личного кабинета, то войдите заново.
+
+  booter:
+    modal:
+      title:
+        hotel_review: Добавить комментарий
+
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              not_found: Такой емайл не найден в базе
+
+    models:
+      user:
+        one: Пользователь
+        other: Пользователи
+      agency:
+        one: Агентство
+        other: Агентства
+      hotelier:
+        one: Хотельер
+        other: Хотельеры
+      camper:
+        one: Турист
+        other: Туристы
+      document:
+        one: Документ
+        other: Документы
+      profile:
+        one: Профиль
+        other: Профили
+      ticket: Запрос
+
+      article:
+        one: Акция
+        other: Акции
+
+      message:
+        one: Сообщение
+        other: Сообщения
+
+      hotel:
+        one: Гостиница
+        other: Гостиницы
+
+      hotel/review:
+        one: Отзыв
+        other: Отзывы
+
+      hotel/city:
+        one: Город
+        other: Города
+
+      email_template:
+        one: Шаблон
+        other: Шаблоны
+
+      hotel/street:
+        one: Улица
+        other: Улицы
+
+      hotel/service/value:
+        one: Сервис
+        other: Сервисы
+
+      hotel/room/field/value:
+        one: Поле номера
+        other: Поля номера
+
+      hotel/filter:
+        one: Фильтр
+        other: Фильтры
+
+      hotel/room/field:
+        one: Дополнительное поле
+        other: Дополнительные поля
+
+      hotel/special_offer:
+        one: Специальное предложение
+        other: Специальные предложения
+
+    attributes:
+      user/admin:
+        email: Электронный адрес
+        password: Пароль
+
+      email_template:
+        name: Тип
+        subject: Тема
+        body: Шаблон
+
+      hotel/review:
+        name: Полное имя
+        email: Электронный адрес
+        text: Содержание
+        character_id: Тип
+        published: Опубликовать
+        captcha: Проверочный код
+
+      contact_message:
+        name: Имя
+        email: Электронный адрес
+        subject: Тема
+        body: Содержание
+        captcha: Проверочный код
+
+      ticket:
+        rooms: Номера
+
+      message:
+        text: Сообщение
+
+      hotel/filter:
+        include_to_print: Включить в печать
+        name: Название
+        items: Варианты
+        show_in_search: Показать в поиске
+
+      hotel/service/value:
+        value: Значение
+
+      hotel/room/field/value:
+        value: Значение
+
+      hotel/service:
+        name: Название
+        default: Использовать всегда
+        default_value: По-умолчанию
+        multiline: Многострочное поле
+        only_moderator: Видят только администраторы
+        only_signed: Видят только авторизированные пользователи
+        include_to_print: Включить в распечатку
+        filter_item_id: Показывать только если
+
+      hotel/special_offer:
+        from: Дата начала
+        to: Дата окончания
+        date: Дата
+        title: Заголовок
+        description: Описание
+
+      hotel/room/field:
+        name: Название
+        multiline: Многострочное поле
+        include_to_print: Включить в распечатку
+        default_value: Значение по-умолчанию
+        only_signed: Видят только авторизированные пользователи
+
+      hotel/bank_attribute:
+        name: Банк
+        current_account: Расчетный счет
+        corr_account: Корр. счет
+        bik: БИК
+
+      hotel/booking:
+        name: Возможность бронирования
+
+      hotel/image:
+        description: Описание
+
+      hotel/room:
+        all_count: Количество номеров этого типа
+        places_count: Количество мест
+        additional_places_count: Дополнительные места
+        area: Площадь
+        type_id: Тип
+        photos: Фотографии
+        name: Тип номера по гостиничному классификатору
+        price_summer_from: Цена в летний период
+        price_winter_from: Цена в зимний период
+        price_high_season_from: Цена в высокий период
+
+      hotel/room/list:
+        name: Название
+        items: Элементы
+
+      hotel:
+        name: Название
+        city_id: Город
+        find_city: Город
+        description: Описание
+        city: Город
+        booking: Возможность бронирования
+        booking_id: Возможность бронирования
+        booking_description: Причина
+        documents: Документы
+        checkout_time: Время расчета
+        min_age_children: Минимальный возраст детей
+        adjacent_territory: Прилегающая территория
+        images: Фотографии
+        agency_commission: Комиссия агентства
+        published: Опубликовать
+        address: Адрес
+        phone: Телефон
+        email: Электронный адрес
+        site: Сайт
+        street: Улица
+        way: Карта проезда
+        street_number: Номер здания
+        route_description: Описание проезда
+        iin: ИНН
+        kpp: КПП
+        ogrn: ОГРН
+        legal_address: Юридический адрес
+        post_address: Почтовый адрес
+        all_rooms_count: Общее количество номеров
+
+        service_values:
+          value: Значение
+
+        rooms:
+          field_values:
+            value: Значение
+
+
+      service_values:
+        value: Значение
+
+      user:
+        is_partner: Партнер
+        is_hotelier: Хотельер
+        is_tourist: Турист
+        surname: Имя
+        email: Электронный адрес
+        password: Пароль
+        password_confirmation: Повторить пароль
+        remember_me: Запомнить меня
+
+      profile:
+        notified: Получать уведомления
+        name: Ответственное лицо
+        phones: Телефон
+        skype: Скайп
+        icq: ICQ
+        logo: Логотип
+        company_name: Название компании
+        address: Почтовый адрес
+        city: Город
+        agreement: Номер договора
+        validity: Действует до
+
+      page:
+        title: Заголовок
+        image: Изображение
+        alias: Алиас
+        image_delete: Удалить изображение
+        content: Содержание
+
+      article:
+        title: Заголовок
+        description: Описание
+        image_delete: Удалить изображение
+        content: Содержание
+        image: Картинка
+
+      document:
+        name: Название
+        description: Описание
+        attach: Файл
+
+      hotel/city:
+          name: Название

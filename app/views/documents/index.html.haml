@@ -1,0 +1,9 @@
+.documents
+  %h1.with-button
+    Документы
+    - if can? :create, Document
+      = link_to 'Новый документ', new_resource_path, class: 'btn btn-mini btn-success'
+
+
+  #content-table
+    = render partial: 'table'

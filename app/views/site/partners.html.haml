@@ -1,0 +1,22 @@
+.partners
+  %h1 Партнеры
+
+  - @partners.each do |partner|
+    .item.row-fluid
+      .pull-left
+        - if partner.profile.logo.exists?
+          = image_tag partner.profile.logo :thumb
+        - else
+          = image_tag asset_path 'partner.png'
+      .pull-left
+        .partner-city= partner.profile.city
+        %h3= partner.profile.company_name
+        %p
+          %strong Представитель:
+          = partner.profile.name
+        %p
+          %strong Телефоны:
+          = partner.profile.phones
+        %p
+          %strong Адрес:
+          = partner.profile.address

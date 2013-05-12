@@ -1,0 +1,81 @@
+= stylesheet_link_tag 'bootstrap'
+
+:css
+  .document { padding: 20px 40px }
+  .document h1 { font-size: 18px }
+  .document h2 { font-size: 15px }
+  .document .border { border: 1px dotted #333; padding: 5px 10px; margin-top: -1px; margin-left: -1px }
+  .document .right { text-align: right }
+  .document .name { float: left; width: 300px; border: 1px dotted #333 }
+  .document .value { float: left; width: 200px; border: 1px dotted #333 }
+
+.document
+  %h1 Паспорт туристической услуги к заявке №_______________
+  %p от "___"__________ 20___г.
+
+  .row-fluid.border
+    .pull-left
+      %b Название гостиницы
+    .pull-right
+      = resource.name
+
+  .row-fluid
+    - filters = resource.all_filter_values
+    .pull-left.right.border
+      = filters[0].item.name
+    .pull-right.border
+      = filters[1].item.name
+
+  .row-fluid.border
+    %b Адрес
+    %p
+      = resource.city
+      = resource.street
+      = resource.street_number
+
+  .row-fluid.border
+    %b Проезд
+    %p
+      = resource.route_description
+
+  .row-fluid.border
+    %b Общая часть
+    %p
+      %br
+      %br
+      %br
+      %br
+      %br
+
+  .row-fluid.border
+    %b Расчетный час
+    %p= resource.checkout_time
+
+  .row-fluid.border
+    %b Документы, необходимые для заселения в гостиницу
+    %p= resource.documents
+
+  %br
+  %h2 Характеристики гостиничных номеров
+  - resource.rooms.each do |room|
+    .row-fluid.border
+      .span6
+        .name Тип номера
+        .value= room.name
+      .span6
+        %p
+          .name Тип номера по гостиничной классификации
+          .value= room.type.name
+
+      %p
+        Площадь номера, кв.м
+        = room.area
+
+      %p
+        Количество мест
+        10
+
+      %p
+        Количество доп. мест
+        10
+    %br
