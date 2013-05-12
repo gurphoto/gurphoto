@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '3.2.11'
 
 gem 'seed_dump', git: 'git://github.com/alexesDev/seed_dump.git'
@@ -11,12 +10,6 @@ gem 'bootstrap-will_paginate'
 gem 'liquid'
 gem 'galetahub-simple_captcha', :require => 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
 gem 'paper_trail'
-
-group :production do
-
-  gem 'pg'
-
-end
 
 gem 'russian'
 gem 'cells'
@@ -70,6 +63,10 @@ group :test, :development do
   gem 'guard-spork'
   gem 'factory_girl'
   gem 'thin'
+end
+
+group :production do
+  gem 'pg'
 end
 
 gem 'unicorn', '4.3.1'
