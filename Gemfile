@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+#gem 'rails', '3.2.11'
+gem 'rails'
 
 gem 'seed_dump', git: 'git://github.com/alexesDev/seed_dump.git'
 gem 'activeadmin'
