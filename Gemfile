@@ -67,6 +67,8 @@ end
 
 group :production do
   gem 'pg'
+  gem 'heroku'
+  gem 'thin'
 end
 
 gem 'unicorn', '4.3.1'

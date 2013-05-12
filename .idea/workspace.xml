@@ -7,7 +7,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log/development.log" afterPath="$PROJECT_DIR$/log/development.log" />
     </list>
     <ignored path="EWorld_2.1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,7 +31,7 @@
       <file leaf-file-name="Gemfile" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Gemfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="63" selection-start="1282" selection-end="1282" vertical-scroll-proportion="0.5741325">
+            <state line="73" column="12" selection-start="1536" selection-end="1536" vertical-scroll-proportion="0.8817035">
               <folding />
             </state>
           </provider>
@@ -862,7 +861,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Gemfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="63" selection-start="1282" selection-end="1282" vertical-scroll-proportion="0.5741325">
+        <state line="73" column="12" selection-start="1536" selection-end="1536" vertical-scroll-proportion="0.8817035">
           <folding />
         </state>
       </provider>
