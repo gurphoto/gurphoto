@@ -68,7 +68,7 @@ end
 
 #group :production do
   gem 'pg'
-  gem 'heroku'
+  #gem 'heroku'
   gem 'thin'
 #end
 
